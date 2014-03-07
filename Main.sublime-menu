@@ -8,9 +8,9 @@
             "caption": "AppBuilder",
             "children":
             [
-                { "id": "deploy", "command": "deploy"},
-                { "id": "sync", "command": "sync"},
-                { "id": "toggle_live_sync", "command": "toggle_live_sync", "checkbox": true }
+                { "id": "deploy", "command": "deploy", "caption": "Build and Deploy"},
+                { "id": "sync", "command": "sync", "caption": "Sync"},
+                { "id": "toggle_live_sync", "command": "toggle_live_sync", "checkbox": true, "caption": "LiveSync" }
             ]
         }
     ]
