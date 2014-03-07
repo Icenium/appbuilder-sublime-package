@@ -146,7 +146,7 @@ class ToggleLiveSyncCommand(DevicesCommandBase):
         if project_index >= 0 and device_index >= 0:
             command = ["live-sync", "--watch", "--path", self.projects[project_index][1]]
             command.append("--device")
-            command.append(self.devices[device_index - 1]["identifier"])
+            command.append(self.devices[device_index]["identifier"])
 
             ToggleLiveSyncCommand.commandThread = AppBuilderCommandExecutor.run_command(command, self.on_data, self.on_done, "Watching")
             ToggleLiveSyncCommand.isChecked = True
