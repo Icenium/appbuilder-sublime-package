@@ -3,6 +3,7 @@ import subprocess
 import os
 import sublime
 import functools
+import psutil
 
 from notifier import Notifier
 

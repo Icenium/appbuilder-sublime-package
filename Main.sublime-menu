@@ -10,7 +10,8 @@
             [
                 { "id": "deploy", "command": "deploy", "caption": "Build and Deploy"},
                 { "id": "sync", "command": "sync", "caption": "Sync"},
-                { "id": "toggle_live_sync", "command": "toggle_live_sync", "checkbox": true, "caption": "LiveSync" }
+                { "id": "toggle_live_sync", "command": "toggle_live_sync", "checkbox": true, "caption": "LiveSync" },
+				{ "id": "run_in_simulator", "command": "run_in_simulator", "caption": "Run in Simulator" }
             ]
         }
     ]

@@ -140,11 +140,11 @@ class ToggleLiveSyncCommand(DevicesCommandBase):
 
     def execute(self, project_index, device_index):
         if project_index >= 0 and device_index >= 0:
-            command = ["live-sync", "--path", "\"{path}\"}".format(path = self.projects[project_index][1]), "--watch"]
+            command = ["live-sync", "--watch", "--path", self.projects[project_index][1]]
             command.append("--device")
             command.append(self.devices[device_index - 1]["identifier"])
 
-            ToggleLiveSyncCommand.commandThread = AppBuilderCommandExecutor.run_command(command, self.on_data, self.on_done)
+            ToggleLiveSyncCommand.commandThread = AppBuilderCommandExecutor.run_command(command, self.on_data, self.on_done, "Watching")
             ToggleLiveSyncCommand.isChecked = True
 
         ToggleLiveSyncCommand.isStarting = False
@@ -156,3 +156,15 @@ class ToggleLiveSyncCommand(DevicesCommandBase):
         ToggleLiveSyncCommand.commandThread = None
         ToggleLiveSyncCommand.isChecked = False
         Notifier.log_info(exit_code)
+
+class RunInSimulatorCommand(DevicesCommandBase):
+    @property
+    def command_name(self):
+        return "Run in Simulator"
+
+    def run(self):
+        self.choose_project()
+
+    def on_project_chosen(self, project_index):
+        command = ["simulate", "--path", self.projects[project_index][1]]
+        AppBuilderCommandExecutor.run_command(command, self.on_data, self.on_done, "Starting simulator")
