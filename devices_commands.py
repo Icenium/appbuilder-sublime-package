@@ -67,7 +67,11 @@ class DevicesCommandBase(AppBuilderWindowCommandBase):
             elif devicesCount == 1:
                 self.on_device_chosen(0)
             elif devicesCount > 1:
-                devicesList = map((lambda device: [device["identifier"], device["platform"]]), self.devices)
+                devicesList = map((lambda device: [device["name"],
+                        "Platform: {platform} {version}".format(platform=device["platform"], version=device["version"]),
+                        "Model: {model}".format(model=device["model"]),
+                        "Vendor: {vendor}".format(vendor=device["vendor"])]),
+                    self.devices)
                 AppBuilderCommandExecutor.show_quick_panel(self, devicesList, self.on_device_chosen)
         else:
             Notifier.log_error("Command failed with exit code: {code}".format(code = exit_code))
@@ -163,8 +167,10 @@ class RunInSimulatorCommand(DevicesCommandBase):
         return "Run in Simulator"
 
     def run(self):
-        self.choose_project()
+        if os.name == "nt":
+            self.choose_project()
 
     def on_project_chosen(self, project_index):
-        command = ["simulate", "--path", self.projects[project_index][1]]
-        AppBuilderCommandExecutor.run_command(command, self.on_data, self.on_done, "Starting simulator")
+        if project_index >= 0:
+            command = ["simulate", "--path", self.projects[project_index][1]]
+            AppBuilderCommandExecutor.run_command(command, self.on_data, self.on_done, "Starting simulator")
