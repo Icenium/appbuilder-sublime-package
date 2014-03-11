@@ -167,8 +167,14 @@ class RunInSimulatorCommand(DevicesCommandBase):
         return "Run in Simulator"
 
     def run(self):
-        if os.name == "nt":
+        if self.is_enabled():
             self.choose_project()
+
+    def is_enabled(self):
+        return os.name == "nt"
+
+    def is_visible(self):
+        return os.name == "nt"
 
     def on_project_chosen(self, project_index):
         if project_index >= 0:
