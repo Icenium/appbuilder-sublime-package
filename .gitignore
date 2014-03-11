@@ -1,5 +1,6 @@
 *.pyc
 package-metadata.json
+debug.log
 
 test-reports.xml
 
