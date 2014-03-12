@@ -114,7 +114,7 @@ class SyncCommand(DevicesCommandBase):
         if project_index < 0 or device_index < 0:
             return
 
-        command = ["live-sync", "--path", self.projects[project_index][1]]
+        command = ["livesync", "--path", self.projects[project_index][1]]
         command.append("--device")
         command.append(self.devices[device_index]["identifier"])
         command_executor.run_command(command, self.on_data, self.on_done, "Syncing")
@@ -149,7 +149,7 @@ class ToggleLiveSyncCommand(DevicesCommandBase):
 
     def execute(self, project_index, device_index):
         if project_index >= 0 and device_index >= 0:
-            command = ["live-sync", "--watch", "--path", self.projects[project_index][1]]
+            command = ["livesync", "--watch", "--path", self.projects[project_index][1]]
             command.append("--device")
             command.append(self.devices[device_index]["identifier"])
 
