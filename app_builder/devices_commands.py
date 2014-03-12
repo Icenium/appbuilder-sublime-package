@@ -2,16 +2,19 @@ import os
 import json
 import sublime
 import sublime_plugin
+import notifier
+import command_executor
 
 from base_commands import AppBuilderWindowCommandBase
-from command_executor import AppBuilderCommandExecutor
 from project import Project
-from notifier import Notifier
 
 class DevicesCommandBase(AppBuilderWindowCommandBase):
     @property
     def command_name(self):
         return ""
+
+    def is_enabled(self):
+        return command_executor.has_working_appbuilder_cli()
 
     def run(self):
         self.do_run()
@@ -38,9 +41,9 @@ class DevicesCommandBase(AppBuilderWindowCommandBase):
         if projectsCount == 1:
             self.on_project_chosen(0)
         elif projectsCount > 1:
-            AppBuilderCommandExecutor.show_quick_panel(self, self.projects, self.on_project_chosen)
+            command_executor.show_quick_panel(self, self.projects, self.on_project_chosen)
         else:
-            Notifier.log_info("There are no projects in your currently opened folders")
+            notifier.log_info("There are no projects in your currently opened folders")
 
     def on_project_chosen(self, project_index):
         if project_index >= 0:
@@ -50,20 +53,20 @@ class DevicesCommandBase(AppBuilderWindowCommandBase):
         self.on_device_chosen = callback
         command = ["list-devices", "--json"]
         self.devices = []
-        AppBuilderCommandExecutor.run_command(command, self.on_device_data_reveived, self.on_devices_data_finished, "Retrieving devices")
+        command_executor.run_command(command, self.on_device_data_reveived, self.on_devices_data_finished, "Retrieving devices")
 
     def on_device_data_reveived(self, data):
         try:
             device = json.loads(data)
             self.devices.append(device)
         except ValueError:  # includes simplejson.decoder.JSONDecodeError
-            print data
+            notifier.log_error(data)
 
     def on_devices_data_finished(self, exit_code):
         if (exit_code == 0):
             devicesCount = len(self.devices)
             if devicesCount == 0:
-                Notifier.log_info("There are no connected devices")
+                notifier.log_info("There are no connected devices")
             elif devicesCount == 1:
                 self.on_device_chosen(0)
             elif devicesCount > 1:
@@ -72,19 +75,19 @@ class DevicesCommandBase(AppBuilderWindowCommandBase):
                         "Model: {model}".format(model=device["model"]),
                         "Vendor: {vendor}".format(vendor=device["vendor"])]),
                     self.devices)
-                AppBuilderCommandExecutor.show_quick_panel(self, devicesList, self.on_device_chosen)
+                command_executor.show_quick_panel(self, devicesList, self.on_device_chosen)
         else:
-            Notifier.log_error("Command failed with exit code: {code}".format(code = exit_code))
+            notifier.log_error("Command failed with exit code: {code}".format(code = exit_code))
             self.on_device_chosen(-1)
 
     def on_data(self, data):
-        Notifier.log_info(data)
+        notifier.log_info(data)
 
     def on_done(self, exit_code):
         if exit_code != 0:
-            Notifier.log_error("Command failed with exit code: {code}".format(code = exit_code))
+            notifier.log_error("Command failed with exit code: {code}".format(code = exit_code))
 
-        Notifier.log_info(exit_code)
+        notifier.log_info(exit_code)
 
 class DeployCommand(DevicesCommandBase):
     @property
@@ -98,7 +101,7 @@ class DeployCommand(DevicesCommandBase):
         command = ["deploy", "--path", self.projects[project_index][1]]
         command.append("--device")
         command.append(self.devices[device_index]["identifier"])
-        AppBuilderCommandExecutor.run_command(command, self.on_data, self.on_done, "Deploying")
+        command_executor.run_command(command, self.on_data, self.on_done, "Deploying")
 
 class SyncCommand(DevicesCommandBase):
     @property
@@ -112,7 +115,7 @@ class SyncCommand(DevicesCommandBase):
         command = ["live-sync", "--path", self.projects[project_index][1]]
         command.append("--device")
         command.append(self.devices[device_index]["identifier"])
-        AppBuilderCommandExecutor.run_command(command, self.on_data, self.on_done, "Syncing")
+        command_executor.run_command(command, self.on_data, self.on_done, "Syncing")
 
 class ToggleLiveSyncCommand(DevicesCommandBase):
     @property
@@ -148,18 +151,18 @@ class ToggleLiveSyncCommand(DevicesCommandBase):
             command.append("--device")
             command.append(self.devices[device_index]["identifier"])
 
-            ToggleLiveSyncCommand.commandThread = AppBuilderCommandExecutor.run_command(command, self.on_data, self.on_done, "Watching")
+            ToggleLiveSyncCommand.commandThread = command_executor.run_command(command, self.on_data, self.on_done, "Watching")
             ToggleLiveSyncCommand.isChecked = True
 
         ToggleLiveSyncCommand.isStarting = False
 
     def on_done(self, exit_code):
         if exit_code != 0:
-            Notifier.log_error(exit_code)
+            notifier.log_error(exit_code)
 
         ToggleLiveSyncCommand.commandThread = None
         ToggleLiveSyncCommand.isChecked = False
-        Notifier.log_info(exit_code)
+        notifier.log_info(exit_code)
 
 class RunInSimulatorCommand(DevicesCommandBase):
     @property
@@ -171,7 +174,7 @@ class RunInSimulatorCommand(DevicesCommandBase):
             self.choose_project()
 
     def is_enabled(self):
-        return os.name == "nt"
+        return os.name == "nt" and command_executor.has_working_appbuilder_cli()
 
     def is_visible(self):
         return os.name == "nt"
@@ -179,4 +182,4 @@ class RunInSimulatorCommand(DevicesCommandBase):
     def on_project_chosen(self, project_index):
         if project_index >= 0:
             command = ["simulate", "--path", self.projects[project_index][1]]
-            AppBuilderCommandExecutor.run_command(command, self.on_data, self.on_done, "Starting simulator")
+            command_executor.run_command(command, self.on_data, self.on_done, "Starting simulator")
