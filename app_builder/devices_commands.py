@@ -48,6 +48,8 @@ class DevicesCommandBase(AppBuilderWindowCommandBase):
     def on_project_chosen(self, project_index):
         if project_index >= 0:
             self.choose_device(lambda device_index: self.execute(project_index, device_index))
+        else:
+            self.execute(project_index, -1)
 
     def choose_device(self, callback):
         self.on_device_chosen = callback
