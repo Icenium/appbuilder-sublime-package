@@ -8,7 +8,7 @@ module.exports = function(grunt) {
         compress: {
             main: {
                 options: {
-                    archive: "<%= copyPackageTo %>\\<%= subFolder %>\\AppBuilder.zip"
+                    archive: "<%= copyPackageTo %>\\<%= subFolder %>\\Telerik AppBuilder.zip"
                 },
                 files: [
                     { src: ["**/*.{py,pyd,so}", "*.{sublime-keymap,sublime-menu,sublime-settings}", "LICENSE"] }
