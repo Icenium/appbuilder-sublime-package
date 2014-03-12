@@ -55,7 +55,7 @@ You can build and deploy your app on one device at a time with the **Tools** -> 
 <a id="livesync"></a>
 ### Configure LiveSync
 
-You can toggle real-time synchronization of your code changes on save with the **Tools** -> **Telerik AppBuilder** -> **LiveSync** option. 
+You can toggle real-time synchronization of your code changes on save with the **Tools** -> **Telerik AppBuilder** -> **LiveSync on Save** option. 
 
 When you modify your code and save your changes, your running app will refresh automatically if the device is connected to your system. This operation replaces only the modified application files.
 
@@ -73,7 +73,7 @@ You can synchronize all your changes to an app deployed on a connected device at
 1. Verify that you have connected your device and you have deployed the app.
 1. Run your app.
 1. Modify your code and save changes.
-1. Select **Tools** -> **Telerik AppBuilder** -> **Sync**.<br/>If you have connected multiple devices, Sublime Text 2 will display a drop-down list of the connected devices with their unique identifiers and mobile platform.
+1. Select **Tools** -> **Telerik AppBuilder** -> **LiveSync Application**.<br/>If you have connected multiple devices, Sublime Text 2 will display a drop-down list of the connected devices with their unique identifiers and mobile platform.
 1. Select the device to which you want to sync changes.
 1. Track the deployment process in the status bar and in the log.
 
