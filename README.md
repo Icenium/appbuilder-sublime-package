@@ -25,6 +25,8 @@ This package lets you run your hybrid mobile app on connected devices or in the 
 * Telerik AppBuilder Command-Line Interface
 * Any software required by the <a href="https://www.npmjs.org/package/appbuilder" target="_blank">Telerik AppBuilder Command-Line Interface</a>
 
+> This version of the Telerik AppBuilder package is available only for Sublime Text 2. This package will become compatible with Sublime Text 3 in the next release of Telerik AppBuilder.
+
 ### Install the Package
 
 Install this package with <a href="http://wbond.net/sublime_packages/package_control" target="_blank">Package Control</a>.
