@@ -93,11 +93,11 @@ In the device simulator, you can change the target device form factor, mobile pl
 <a id="contribute"></a>Contribution
 ===
 
-To learn how to log a bug that you just discovered, click [here](CONTRIBUTE#bug).
+To learn how to log a bug that you just discovered, click [here](CONTRIBUTE.md#bug).
 
-To learn how to suggest a new feature or improvement, click [here](CONTRIBUTE#request).
+To learn how to suggest a new feature or improvement, click [here](CONTRIBUTE.md#request).
 
-To learn how to contribute to the code base, click [here](CONTRIBUTE#contribute).
+To learn how to contribute to the code base, click [here](CONTRIBUTE.md#contribute).
 
 [Back to Top][1]
 
