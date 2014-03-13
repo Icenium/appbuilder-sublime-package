@@ -1,14 +1,14 @@
 module.exports = function(grunt) {
     grunt.initConfig({
-        copyPackageTo: "\\\\telerik.com\\Resources\\BlackDragon\\Builds\\appbuilder-sublime-package",
+        movePackageTo: process.env["JOB_NAME"] ? "\\\\telerik.com\\Resources\\BlackDragon\\Builds\\appbuilder-sublime-package" : "build",
         jobName: process.env["JOB_NAME"] || "local",
         buildNumber: process.env["BUILD_NUMBER"] || "non-ci",
-        subFolder: "<%= jobName %>\\<%= grunt.template.today('yyyy-mm-dd') %> #<%= buildNumber %>",
+        destinationFolder: process.env["JOB_NAME"] ? "<%= movePackageTo %>\\<%= jobName %>\\<%= grunt.template.today('yyyy-mm-dd') %> #<%= buildNumber %>" : "<%= movePackageTo %>",
 
         compress: {
             main: {
                 options: {
-                    archive: "<%= copyPackageTo %>\\<%= subFolder %>\\Telerik AppBuilder.zip"
+                    archive: "<%= destinationFolder %>\\Telerik AppBuilder.zip"
                 },
                 files: [
                     { src: ["**/*.{py,pyd,so}", "*.{sublime-keymap,sublime-menu,sublime-settings}", "LICENSE"] }
