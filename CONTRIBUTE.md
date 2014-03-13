@@ -33,7 +33,7 @@ If your issue appears to be a bug, and hasn't been reported, open a new issue. H
 <a id="request"></a>
 Request a Feature
 ===
-You can request a new feature by submitting an issue with an enhancement tag to our <a href="https://github.com/Icenium/appbuilder-sublime-package">GitHub Repository</a>.
+You can request a new feature by submitting an issue with an *enhancement* label to our <a href="https://github.com/Icenium/appbuilder-sublime-package">GitHub Repository</a>.
 If you would like to implement a new feature then consider submitting it to the <a href="https://github.com/Icenium/appbuilder-sublime-package">GitHub Repository</a> as a Pull Request.
 
 [Back to Top][1]
