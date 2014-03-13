@@ -4,6 +4,7 @@ import sublime
 import sublime_plugin
 import notifier
 import command_executor
+import sublime_events_listener
 
 from base_commands import AppBuilderWindowCommandBase
 from project import Project
@@ -55,7 +56,7 @@ class DevicesCommandBase(AppBuilderWindowCommandBase):
         self.on_device_chosen = callback
         command = ["list-devices", "--json"]
         self.devices = []
-        command_executor.run_command(command, self.on_device_data_reveived, self.on_devices_data_finished, "Retrieving devices")
+        command_executor.run_command(command, self.on_device_data_reveived, self.on_devices_data_finished, True, "Retrieving devices")
 
     def on_device_data_reveived(self, data):
         try:
@@ -103,7 +104,7 @@ class DeployCommand(DevicesCommandBase):
         command = ["deploy", "--path", self.projects[project_index][1]]
         command.append("--device")
         command.append(self.devices[device_index]["identifier"])
-        command_executor.run_command(command, self.on_data, self.on_done, "Deploying")
+        command_executor.run_command(command, self.on_data, self.on_done, True, "Deploying")
 
 class SyncCommand(DevicesCommandBase):
     @property
@@ -117,16 +118,19 @@ class SyncCommand(DevicesCommandBase):
         command = ["livesync", "--path", self.projects[project_index][1]]
         command.append("--device")
         command.append(self.devices[device_index]["identifier"])
-        command_executor.run_command(command, self.on_data, self.on_done, "Syncing")
+        command_executor.run_command(command, self.on_data, self.on_done, True, "Syncing")
 
 class ToggleLiveSyncCommand(DevicesCommandBase):
-    @property
-    def command_name(self):
-        return "Live Sync"
-
+    viewStatusKey = "LiveSyncStatus"
     isChecked = False
     isStarting = False
     commandThread = None
+    projectInSync = None
+    markedViews = None
+
+    @property
+    def command_name(self):
+        return "Live Sync"
 
     def run(self):
         if ToggleLiveSyncCommand.isStarting:
@@ -149,12 +153,15 @@ class ToggleLiveSyncCommand(DevicesCommandBase):
 
     def execute(self, project_index, device_index):
         if project_index >= 0 and device_index >= 0:
-            command = ["livesync", "--watch", "--path", self.projects[project_index][1]]
+            ToggleLiveSyncCommand.projectInSync = self.projects[project_index]
+            command = ["livesync", "--watch", "--path", ToggleLiveSyncCommand.projectInSync[1]]
             command.append("--device")
             command.append(self.devices[device_index]["identifier"])
 
-            ToggleLiveSyncCommand.commandThread = command_executor.run_command(command, self.on_data, self.on_done, "Watching")
+            ToggleLiveSyncCommand.commandThread = command_executor.run_command(command, self.on_data, self.on_done, False)
             ToggleLiveSyncCommand.isChecked = True
+            ToggleLiveSyncCommand.init_mark_views(self.window.views())
+            sublime_events_listener.on_view_loaded += self.on_view_loaded
 
         ToggleLiveSyncCommand.isStarting = False
 
@@ -164,7 +171,39 @@ class ToggleLiveSyncCommand(DevicesCommandBase):
 
         ToggleLiveSyncCommand.commandThread = None
         ToggleLiveSyncCommand.isChecked = False
+        ToggleLiveSyncCommand.projectInSync = None
+        sublime_events_listener.on_view_loaded -= self.on_view_loaded
+        ToggleLiveSyncCommand.unmark_views()
+
         notifier.log_info(exit_code)
+
+    def on_view_loaded(self, view):
+        ToggleLiveSyncCommand.mark_view(view)
+
+    @staticmethod
+    def init_mark_views(views):
+        ToggleLiveSyncCommand.markedViews = list()
+        for view in views:
+            ToggleLiveSyncCommand.mark_view(view)
+
+    @staticmethod
+    def mark_view(view):
+        if ToggleLiveSyncCommand.is_in_the_project(view):
+            view.set_status(ToggleLiveSyncCommand.viewStatusKey, "LiveSync ON")
+        else:
+            view.set_status(ToggleLiveSyncCommand.viewStatusKey, "LiveSync OFF (ON for '{name}' project)".
+                format(name=ToggleLiveSyncCommand.projectInSync[0]))
+        ToggleLiveSyncCommand.markedViews.append(view)
+
+    @staticmethod
+    def is_in_the_project(view):
+        return view.file_name().startswith(ToggleLiveSyncCommand.projectInSync[1])
+
+    @staticmethod
+    def unmark_views():
+        for view in ToggleLiveSyncCommand.markedViews:
+            view.erase_status(ToggleLiveSyncCommand.viewStatusKey)
+        ToggleLiveSyncCommand.markedViews = None
 
 class RunInSimulatorCommand(DevicesCommandBase):
     @property
@@ -184,4 +223,4 @@ class RunInSimulatorCommand(DevicesCommandBase):
     def on_project_chosen(self, project_index):
         if project_index >= 0:
             command = ["simulate", "--path", self.projects[project_index][1]]
-            command_executor.run_command(command, self.on_data, self.on_done, "Starting simulator")
+            command_executor.run_command(command, self.on_data, self.on_done, True, "Starting simulator")

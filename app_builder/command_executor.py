@@ -29,13 +29,13 @@ def initialize():
                 "For a complete list of the system requirements for running the Telerik AppBuilder package, go to:\n" +
                 "https://github.com/Icenium/appbuilder-sublime-package#installation")
 
-    run_command(["--version"], on_data, on_done, "Checking AppBuilder CLI version")
+    run_command(["--version"], on_data, on_done, True, "Checking AppBuilder CLI version")
 
 def has_working_appbuilder_cli():
     global _installed_appbuilder_cli_version
     return bool(_installed_appbuilder_cli_version)
 
-def run_command(command, on_data=None, on_done=None, in_progress_message="Loading",
+def run_command(command, on_data=None, on_done=None, show_progress=True, in_progress_message="Loading",
     show_status=True, filter_empty_args=True, no_save=False, **kwargs):
     command = _get_app_builder_path() + command
 
@@ -45,8 +45,9 @@ def run_command(command, on_data=None, on_done=None, in_progress_message="Loadin
     thread = CommandThread(command, on_data, on_done, **kwargs)
     thread.start()
 
-    progress = ThreadProgress(thread, in_progress_message, "Success", "Failure")
-    progress.run(0)
+    if show_progress:
+        progress = ThreadProgress(thread, in_progress_message, "Success", "Failure")
+        progress.run(0)
 
     if show_status:
         message = kwargs.get('status_message', False) or ' '.join(command)
