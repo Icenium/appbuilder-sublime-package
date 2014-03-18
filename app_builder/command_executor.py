@@ -18,6 +18,7 @@ def initialize():
         global _installed_appbuilder_cli_version
         if data:
             _installed_appbuilder_cli_version = data
+            notifier.log_info(data)
 
     def on_done(exit_code):
         global _installed_appbuilder_cli_version
@@ -36,11 +37,10 @@ def has_working_appbuilder_cli():
     return bool(_installed_appbuilder_cli_version)
 
 def run_command(command, on_data=None, on_done=None, show_progress=True, in_progress_message="Loading",
-    show_status=True, filter_empty_args=True, no_save=False, **kwargs):
+    show_status=True, **kwargs):
+    command = [arg for arg in command if arg]
     command = _get_app_builder_path() + command
-
-    if filter_empty_args:
-        command = [arg for arg in command if arg]
+    command = ["python", "{package_path}/Telerik AppBuilder/app_builder/command_wrapper.py".format(package_path=sublime.packages_path())] + command
 
     thread = CommandThread(command, on_data, on_done, **kwargs)
     thread.start()
