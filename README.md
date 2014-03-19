@@ -9,10 +9,10 @@ Telerik AppBuilder for Sublime Text 2
 
 This package lets you run your hybrid mobile app on connected devices or in the device simulator, and synchronize your code changes to the running app without redeploying it. The package requires that the Telerik AppBuilder Command-Line Interface is installed on your system.
 
-* [Installation](#install "How to install the Telerik AppBuilder package for Sublime Text 2")
+* [Installation](#installation "How to install the Telerik AppBuilder package for Sublime Text 2")
 * [Usage](#usage "How to build, deploy, and sync your apps from Sublime Tex 2")
-* [Contribution](#contribute "How to help improve the Telerik AppBuilder package for Sublime")
-* [More Telerik AppBuilder Tools and Resources](#more "Learn more about the available Telerik AppBuilder tools and resources")
+* [Contribution](#contribution "How to help improve the Telerik AppBuilder package for Sublime")
+* [More Telerik AppBuilder Tools and Resources](#more-telerik-appbuilder-tools-and-resources "Learn more about the available Telerik AppBuilder tools and resources")
 * [License](#license "Licensing information about the Telerik AppBuilder package for Sublime Text 2")
 
 <a id="installation"></a>Installation
@@ -38,10 +38,10 @@ Install this package with <a href="http://wbond.net/sublime_packages/package_con
 
 After you install this package, you can access the available build and sync commands from **Tools** -> **Telerik AppBuilder**.
 
-* [Run on Device](#device "Build and deploy to device")
-* [Run in the Device Simulator](#simulator "Deploy in the device simulator")
-* [Configure LiveSync](#livesync "Configure LiveSync")
-* [Reload the App on Device](#sync "Reload the running app on device")
+* [Run on Device](#run-on-device "Build and deploy to device")
+* [Configure LiveSync](#configure-livesync "Configure LiveSync")
+* [Reload the App on Device](#reload-the-app-on-device "Reload the running app on device")
+* [Run in the Device Simulator](#run-in-the-device-simulator-available-only-on-windows "Deploy in the device simulator")
 
 <a id="device"></a>
 ### Run on Device
@@ -93,11 +93,11 @@ In the device simulator, you can change the target device form factor, mobile pl
 <a id="contribute"></a>Contribution
 ===
 
-To learn how to log a bug that you just discovered, click [here](CONTRIBUTE.md#bug).
+To learn how to log a bug that you just discovered, click [here](CONTRIBUTING.md#report-an-issue).
 
-To learn how to suggest a new feature or improvement, click [here](CONTRIBUTE.md#request).
+To learn how to suggest a new feature or improvement, click [here](CONTRIBUTING.md#request-a-feature).
 
-To learn how to contribute to the code base, click [here](CONTRIBUTE.md#contribute).
+To learn how to contribute to the code base, click [here](CONTRIBUTING.md#contribute-to-the-code-base).
 
 [Back to Top][1]
 

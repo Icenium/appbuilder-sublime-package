@@ -9,9 +9,9 @@ The Telerik AppBuilder package for Sublime Text 2 lets you run your hybrid mobil
 
 > The Telerik AppBuilder Command-Line Interface is delivered for Windows and OS X as an npm package. For more information click <a href="https://www.npmjs.org/package/appbuilder" target="_blank">here</a>.
 
-* [Report a Bug](#bug "Learn how to report a bug")
-* [Request a Feature](#request "Learn how to submit a feature or improvement request")
-* [Contribute to the Code Base](#contribute "Learn how to submit your own improvements to the code")
+* [Report an Issue](#report-an-issue "Learn how to report a bug")
+* [Request a Feature](#request-a-feature "Learn how to submit a feature or improvement request")
+* [Contribute to the Code Base](#contribute-to-the-code-base "Learn how to submit your own improvements to the code")
 
 <a id="bug"></a>
 Report an Issue
