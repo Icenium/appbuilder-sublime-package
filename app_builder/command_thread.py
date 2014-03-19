@@ -3,7 +3,7 @@ import subprocess
 import os
 import sublime
 import functools
-import psutil
+import notifier
 
 def main_thread(callback, *args, **kwargs):
     sublime.set_timeout(functools.partial(callback, *args, **kwargs), 0)
@@ -17,7 +17,7 @@ class CommandThread(threading.Thread):
         if "stdin" in kwargs:
             self.stdin = kwargs["stdin"]
         else:
-            self.stdin = None
+            self.stdin = subprocess.PIPE
         if "stdout" in kwargs:
             self.stdout = kwargs["stdout"]
         else:
@@ -26,28 +26,19 @@ class CommandThread(threading.Thread):
 
     def terminate(self):
         if self.proc != None:
-            self._terminate_proc_tree(self.proc.pid)
-
-    def _terminate_proc_tree(self, pid, including_parent=True):
-        parent = psutil.Process(pid)
-        for child in parent.get_children(recursive=True):
-            child.terminate()
-        if including_parent:
-            parent.terminate()
+            self.proc.stdin.close()
 
     def run(self):
         try:
-            # Per http://bugs.python.org/issue8557 shell=True is required to
-            # get $PATH on Windows. Yay portable code.
-            shell = os.name == 'nt'
+            startupinfo = subprocess.STARTUPINFO()
+            startupinfo.dwFlags = subprocess.STARTF_USESTDHANDLES | subprocess.STARTF_USESHOWWINDOW
 
             self.proc = subprocess.Popen(self.command,
-                stdout=self.stdout, stderr=subprocess.STDOUT,
-                stdin=subprocess.PIPE,
-                shell=shell, universal_newlines=True)
+                stdout=self.stdout, stderr=subprocess.STDOUT, stdin=self.stdin,
+                shell=False, universal_newlines=True, startupinfo=startupinfo)
 
             if self.on_data:
-                for line in self.proc.stdout:
+                for line in iter(self.proc.stdout.readline, ""):
                     main_thread(self.on_data, line)
 
             self.proc.wait();
