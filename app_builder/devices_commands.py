@@ -70,7 +70,6 @@ class DevicesCommandBase(AppBuilderWindowCommandBase):
             devicesCount = len(self.devices)
             if devicesCount == 0:
                 notifier.log_info("There are no connected devices")
-                self.on_device_chosen(-1)
             elif devicesCount == 1:
                 self.on_device_chosen(0)
             elif devicesCount > 1:
@@ -91,7 +90,7 @@ class DevicesCommandBase(AppBuilderWindowCommandBase):
         if exit_code != 0:
             notifier.log_error("Command failed with exit code: {code}".format(code = exit_code))
 
-        notifier.log_info("Exit code: {exit_code}".format(exit_code=exit_code))
+        notifier.log_info(exit_code)
 
 class DeployCommand(DevicesCommandBase):
     @property
@@ -176,7 +175,7 @@ class ToggleLiveSyncCommand(DevicesCommandBase):
         sublime_events_listener.on_view_loaded -= self.on_view_loaded
         ToggleLiveSyncCommand.unmark_views()
 
-        notifier.log_info("Exit code: {exit_code}".format(exit_code=exit_code))
+        notifier.log_info(exit_code)
 
     def on_view_loaded(self, view):
         ToggleLiveSyncCommand.mark_view(view)

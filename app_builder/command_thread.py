@@ -17,7 +17,7 @@ class CommandThread(threading.Thread):
         if "stdin" in kwargs:
             self.stdin = kwargs["stdin"]
         else:
-            self.stdin = subprocess.PIPE
+            self.stdin = None
         if "stdout" in kwargs:
             self.stdout = kwargs["stdout"]
         else:
@@ -26,18 +26,25 @@ class CommandThread(threading.Thread):
 
     def terminate(self):
         if self.proc != None:
-            for child in self.proc.get_children(recursive=True):
-                child.terminate()
-            self.proc.terminate()
+            self._terminate_proc_tree(self.proc.pid)
+
+    def _terminate_proc_tree(self, pid, including_parent=True):
+        parent = psutil.Process(pid)
+        for child in parent.get_children(recursive=True):
+            child.terminate()
+        if including_parent:
+            parent.terminate()
 
     def run(self):
         try:
-            startupinfo = subprocess.STARTUPINFO()
-            startupinfo.dwFlags = subprocess.STARTF_USESTDHANDLES | subprocess.STARTF_USESHOWWINDOW
+            # Per http://bugs.python.org/issue8557 shell=True is required to
+            # get $PATH on Windows. Yay portable code.
+            shell = os.name == 'nt'
 
-            self.proc = psutil.Popen(self.command,
-                stdout=self.stdout, stderr=subprocess.STDOUT, stdin=self.stdin,
-                shell=False, universal_newlines=True, startupinfo=startupinfo)
+            self.proc = subprocess.Popen(self.command,
+                stdout=self.stdout, stderr=subprocess.STDOUT,
+                stdin=subprocess.PIPE,
+                shell=shell, universal_newlines=True)
 
             if self.on_data:
                 for line in self.proc.stdout:
@@ -50,7 +57,7 @@ class CommandThread(threading.Thread):
             main_thread(self.on_done, e.returncode)
         except OSError, e:
             if e.errno == 2:
-                main_thread(notifier.log_error, "AppBuilder could not be found in PATH\nPATH is: %s" % os.environ["PATH"])
+                main_thread(notifier.log_error, "AppBuilder could not be found in PATH\nPATH is: %s" % os.environ['PATH'])
             else:
                 raise e
 
