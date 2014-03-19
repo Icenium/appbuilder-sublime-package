@@ -30,8 +30,10 @@ class CommandThread(threading.Thread):
 
     def run(self):
         try:
-            startupinfo = subprocess.STARTUPINFO()
-            startupinfo.dwFlags = subprocess.STARTF_USESTDHANDLES | subprocess.STARTF_USESHOWWINDOW
+            startupinfo = None
+            if os.name == "nt":
+                startupinfo = subprocess.STARTUPINFO()
+                startupinfo.dwFlags = subprocess.STARTF_USESTDHANDLES | subprocess.STARTF_USESHOWWINDOW
 
             self.proc = subprocess.Popen(self.command,
                 stdout=self.stdout, stderr=subprocess.STDOUT, stdin=self.stdin,
