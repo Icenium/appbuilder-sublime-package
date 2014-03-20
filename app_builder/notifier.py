@@ -15,7 +15,7 @@ def log_warning(message):
 def log_info(message):
     _process_message(message, _INFO_LOG_LEVEL_NAME)
 
-def fail(message):
+def log_fail(message):
     _process_message(message, _FAIL_LEVEL_NAME)
 
 def _process_message(message, level):
@@ -33,7 +33,7 @@ def _log(message, level):
     elif level == _ERROR_LOG_LEVEL_NAME:
         _log_error(message)
     elif level == _FAIL_LEVEL_NAME:
-        _fail(message)
+        _log_fail(message)
 
 def _log_error(message):
     _log_info(message)
@@ -43,9 +43,9 @@ def _log_warning(message):
 
 def _log_info(message):
     _show_panel()
-    print message
+    print(message)
 
-def _fail(message):
+def _log_fail(message):
     sublime.error_message(message)
 
 def _show_panel():

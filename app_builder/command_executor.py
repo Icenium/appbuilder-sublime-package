@@ -1,41 +1,13 @@
 import sublime
 import os
-import notifier
 import subprocess
 
-from thread_progress import ThreadProgress
-from command_thread import CommandThread
+from .bootstrapper import get_config
+from .notifier import log_info, log_error, log_fail
+from .thread_progress import ThreadProgress
+from .command_thread import CommandThread
 
 _appbuilder_path = []
-
-_DEFAULT_OSX_NODE_PATH = "/usr/local/bin/node"
-_DEFAULT_OSX_APPBUILDER_PATH = "/usr/local/bin/appbuilder"
-_WIN_NODE_NAME = "node"
-_WIN_APPBUILDER_NAME = "appbuilder"
-
-_installed_appbuilder_cli_version = None
-
-def initialize():
-    def on_data(data):
-        global _installed_appbuilder_cli_version
-        if data:
-            _installed_appbuilder_cli_version = data
-
-    def on_done(exit_code):
-        global _installed_appbuilder_cli_version
-        if exit_code == 0:
-            notifier.log_info("Telerik AppBuilder has been initialized successfuly")
-        else:
-            _installed_appbuilder_cli_version = None
-            notifier.fail("Cannot load the Telerik AppBuilder package because the Telerik AppBuilder command-line interface is not installed properly on your system.\n" +
-                "For a complete list of the system requirements for running the Telerik AppBuilder package, go to:\n" +
-                "https://github.com/Icenium/appbuilder-sublime-package#installation")
-
-    run_command(["--version"], on_data, on_done, True, "Checking AppBuilder CLI version")
-
-def has_working_appbuilder_cli():
-    global _installed_appbuilder_cli_version
-    return bool(_installed_appbuilder_cli_version)
 
 def run_command(command, on_data=None, on_done=None, show_progress=True, in_progress_message="Loading",
     show_status=True, filter_empty_args=True, no_save=False, **kwargs):
@@ -68,16 +40,8 @@ def _get_appbuilder_path():
             _appbuilder_path.append(_find_win_node_path())
             _appbuilder_path.append(_find_win_appbuilder_path())
         elif os.name == "posix":
-            config = sublime.load_settings("AppBuilder.sublime-settings")
-            if config.get("node_osx_path"):
-                _appbuilder_path.append(config.get("node_osx_path"))
-            else:
-                _appbuilder_path.append(_DEFAULT_OSX_NODE_PATH)
-
-            if config.get("appbuilder_osx_path"):
-                _appbuilder_path.append(config.get("appbuilder_osx_path"))
-            else:
-                _appbuilder_path.append(_DEFAULT_OSX_APPBUILDER_PATH)
+            _appbuilder_path.append(get_config("osx_node_path"))
+            _appbuilder_path.append(get_config("osx_appbuilder_path"))
 
     return _appbuilder_path
 
@@ -85,26 +49,28 @@ def _find_win_node_path():
     paths = _get_paths()
     for path in paths:
         try:
-            node_path = os.path.join(path, _WIN_NODE_NAME)
+            node_path = os.path.join(path, get_config("win_node_name"))
             proc = subprocess.Popen([node_path])
             proc.terminate()
             return node_path
         except WindowsError:
             pass
-    return _WIN_NODE_NAME
+    return get_config("win_node_name")
 
 def _find_win_appbuilder_path():
     paths = _get_paths()
     for path in paths:
-        if "npm" in path:
-            try:
-                appbuilder_path = os.path.join(path, _WIN_APPBUILDER_NAME)
-                proc = subprocess.Popen([appbuilder_path + ".cmd"])
-                proc.terminate()
-                return os.path.join(path, "node_modules", "appbuilder", "bin", _WIN_APPBUILDER_NAME + ".js")
-            except WindowsError:
-                pass
-    return _WIN_APPBUILDER_NAME
+        try:
+            appbuilder_path = os.path.join(path, get_config("win_appbuilder_name"))
+            proc = subprocess.Popen([appbuilder_path + ".cmd"])
+            proc.terminate()
+            if "npm" in path:
+                return os.path.join(path, "node_modules", "appbuilder", "bin", get_config("win_appbuilder_name") + ".js")
+            else:
+                return os.path.join(path, get_config("win_appbuilder_name") + ".js")
+        except WindowsError:
+            pass
+    return get_config("win_appbuilder_name")
 
 def _get_paths():
     return os.environ["PATH"].split(";")

@@ -3,7 +3,8 @@ import subprocess
 import os
 import sublime
 import functools
-import notifier
+
+from .notifier import log_info, log_error
 
 def main_thread(callback, *args, **kwargs):
     sublime.set_timeout(functools.partial(callback, *args, **kwargs), 0)
@@ -46,11 +47,11 @@ class CommandThread(threading.Thread):
             self.proc.wait();
             main_thread(self.on_done, self.proc.returncode)
 
-        except subprocess.CalledProcessError, e:
+        except subprocess.CalledProcessError as e:
             main_thread(self.on_done, e.returncode)
-        except OSError, e:
+        except OSError as e:
             if e.errno == 2:
-                main_thread(notifier.log_error, "AppBuilder could not be found in PATH\nPATH is: %s" % os.environ['PATH'])
+                main_thread(log_error, "AppBuilder could not be found in PATH\nPATH is: %s" % os.environ['PATH'])
             else:
                 raise e
 
