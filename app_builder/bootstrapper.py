@@ -9,12 +9,11 @@ _has_compatible_working_appbuilder_cli = None
 _config = None
 
 def initialize(installed_appbuilder_cli_version):
-    _load_config()
     _verify_appbuilder_cli_version(installed_appbuilder_cli_version)
 
 def _load_config():
     global _config
-    _settings = sublime.load_settings("AppBuilder.sublime-settings")
+    settings = sublime.load_settings("AppBuilder.sublime-settings")
     _config = {
         "osx_node_path": settings.get("node_osx_path") or "/usr/local/bin/node",
         "osx_appbuilder_path": settings.get("osx_appbuilder_path") or "/usr/local/bin/appbuilder",
@@ -38,6 +37,9 @@ def _verify_appbuilder_cli_version(installed_appbuilder_cli_version):
 
 def get_config(name):
     global _config
+    if _config == None:
+        _load_config()
+
     return _config[name]
 
 def has_compatible_working_appbuilder_cli():
