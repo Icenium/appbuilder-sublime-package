@@ -75,11 +75,11 @@ class DevicesCommandBase(AppBuilderWindowCommandBase):
             elif devicesCount == 1:
                 self.on_device_chosen(0)
             elif devicesCount > 1:
-                devicesList = map((lambda device: [device["name"],
+                devicesList = list(map((lambda device: [device["name"],
                         "Platform: {platform} {version}".format(platform=device["platform"], version=device["version"]),
                         "Model: {model}".format(model=device["model"]),
                         "Vendor: {vendor}".format(vendor=device["vendor"])]),
-                    self.devices)
+                    self.devices))
                 show_quick_panel(self, devicesList, self.on_device_chosen)
         else:
             log_error("Command failed with exit code: {code}".format(code = exit_code))
