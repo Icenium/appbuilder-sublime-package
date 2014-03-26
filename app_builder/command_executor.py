@@ -73,5 +73,5 @@ def _find_win_appbuilder_path():
     return get_config("win_appbuilder_name")
 
 def _get_paths():
-    return os.environ["PATH"].split(";")
+    return os.environ["PATH"].split(os.pathsep)
 
