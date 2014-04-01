@@ -1,9 +1,9 @@
-Contribute to the Telerik AppBuilder Package for Sublime Text 2
+Contribute to the Telerik AppBuilder Package for Sublime Text
 ===
 
-*Help us improve the Telerik AppBuilder Package for Sublime Text 2* 
+*Help us improve the Telerik AppBuilder Package for Sublime Text* 
 
-[![Telerik AppBuilder](ab-logo.png "Telerik AppBuilder")](http://www.telerik.com/appbuilder "The Telerik AppBuilder web site")
+[![Telerik AppBuilder](https://raw.githubusercontent.com/Icenium/appbuilder-sublime-package/master/ab-logo.png "Telerik AppBuilder")](http://www.telerik.com/appbuilder "The Telerik AppBuilder web site")
 
 The Telerik AppBuilder package for Sublime Text 2 lets you run your hybrid mobile app on connected devices or in the device simulator, and synchronize your code changes to the running app without redeploying it. The package requires that the Telerik AppBuilder Command-Line Interface is installed on your system.
 
@@ -13,7 +13,6 @@ The Telerik AppBuilder package for Sublime Text 2 lets you run your hybrid mobil
 * [Request a Feature](#request-a-feature "Learn how to submit a feature or improvement request")
 * [Contribute to the Code Base](#contribute-to-the-code-base "Learn how to submit your own improvements to the code")
 
-<a id="bug"></a>
 Report an Issue
 ===
 If you find a bug in the source code or a mistake in the documentation, you can help us by submitting an issue to our <a href="https://github.com/Icenium/appbuilder-sublime-package">GitHub Repository</a>.
@@ -30,7 +29,6 @@ If your issue appears to be a bug, and hasn't been reported, open a new issue. H
 
 [Back to Top][1]
 
-<a id="request"></a>
 Request a Feature
 ===
 You can request a new feature by submitting an issue with an *enhancement* label to our <a href="https://github.com/Icenium/appbuilder-sublime-package">GitHub Repository</a>.
@@ -38,7 +36,6 @@ If you would like to implement a new feature then consider submitting it to the 
 
 [Back to Top][1]
 
-<a id="contribute"></a>
 Contribute to the Code Base
 ===
 Before you submit your Pull Request consider the following guidelines:
@@ -93,4 +90,4 @@ When the patch is reviewed and merged, you can safely delete your branch and pul
 
 [Back to Top][1]
 
-[1]: #contribute-to-the-telerik-appbuilder-command-line-interface
+[1]: #contribute-to-the-telerik-appbuilder-package-for-sublime-text

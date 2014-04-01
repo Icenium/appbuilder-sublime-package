@@ -1,31 +1,31 @@
-Telerik AppBuilder for Sublime Text 2
+Telerik AppBuilder for Sublime Text
 ==========================
 
 *Build and test iOS and Android hybrid apps using a single pure HTML5, CSS, and JavaScript code base*
 
-[![Telerik AppBuilder](ab-logo.png "Telerik AppBuilder")](http://www.telerik.com/appbuilder "The Telerik AppBuilder web site")
+[![Telerik AppBuilder](https://raw.githubusercontent.com/Icenium/appbuilder-sublime-package/master/ab-logo.png "Telerik AppBuilder")](http://www.telerik.com/appbuilder "The Telerik AppBuilder web site")
 
-**Leverage the build and test capabilities of Telerik AppBuilder from Sublime Text 2**
+**Leverage the build and test capabilities of Telerik AppBuilder from Sublime Text 2 or Sublime Text 3**
 
 This package lets you run your hybrid mobile app on connected devices or in the device simulator, and synchronize your code changes to the running app without redeploying it. The package requires that the Telerik AppBuilder Command-Line Interface is installed on your system.
 
-* [Installation](#installation "How to install the Telerik AppBuilder package for Sublime Text 2")
-* [Usage](#usage "How to build, deploy, and sync your apps from Sublime Tex 2")
-* [Contribution](#contribution "How to help improve the Telerik AppBuilder package for Sublime")
-* [More Telerik AppBuilder Tools and Resources](#more-telerik-appbuilder-tools-and-resources "Learn more about the available Telerik AppBuilder tools and resources")
-* [License](#license "Licensing information about the Telerik AppBuilder package for Sublime Text 2")
+> The Telerik AppBuilder Command-Line Interface is delivered for Windows and OS X as an npm package. For more information click <a href="https://www.npmjs.org/package/appbuilder" target="_blank">here</a>.
 
-<a id="installation"></a>Installation
+* [Installation](#installation "How to install the Telerik AppBuilder package for Sublime Text")
+* [Usage](#usage "How to build, deploy, and sync your apps from Sublime Text")
+* [Contribution](#contribution "How to help improve the Telerik AppBuilder package for Sublime Text")
+* [More Telerik AppBuilder Tools and Resources](#more-telerik-appbuilder-tools-and-resources "Learn more about the available Telerik AppBuilder tools and resources")
+* [License](#license "Licensing information about the Telerik AppBuilder package for Sublime Text")
+
+Installation
 ===
 
 ### Software Requirements
 
 * Windows or OS X Mavericks
-* Sublime Text 2
+* Sublime Text 2 or Sublime Text 3
 * Telerik AppBuilder Command-Line Interface
 * Any software required by the <a href="https://www.npmjs.org/package/appbuilder" target="_blank">Telerik AppBuilder Command-Line Interface</a>
-
-> This version of the Telerik AppBuilder package is available only for Sublime Text 2. This package will become compatible with Sublime Text 3 in the next release of Telerik AppBuilder.
 
 ### Install the Package
 
@@ -33,7 +33,7 @@ Install this package with <a href="http://wbond.net/sublime_packages/package_con
 
 [Back to Top][1]
 
-<a id="usage"></a>Usage
+Usage
 ===
 
 After you install this package, you can access the available build and sync commands from **Tools** -> **Telerik AppBuilder**.
@@ -41,9 +41,8 @@ After you install this package, you can access the available build and sync comm
 * [Run on Device](#run-on-device "Build and deploy to device")
 * [Configure LiveSync](#configure-livesync "Configure LiveSync")
 * [Reload the App on Device](#reload-the-app-on-device "Reload the running app on device")
-* [Run in the Device Simulator](#run-in-the-device-simulator-available-only-on-windows "Deploy in the device simulator")
+* [Run in the Device Simulator](#run-in-the-device-simulator "Deploy in the device simulator")
 
-<a id="device"></a>
 ### Run on Device
 
 You can build and deploy your app on one device at a time with the **Tools** -> **Telerik AppBuilder** -> **Build and Deploy** operation.
@@ -54,7 +53,6 @@ You can build and deploy your app on one device at a time with the **Tools** -> 
 1. Track the deployment process in the status bar and in the log.
 1. After the deployment completes, run your app on device.
 
-<a id="livesync"></a>
 ### Configure LiveSync
 
 You can toggle real-time synchronization of your code changes on save with the **Tools** -> **Telerik AppBuilder** -> **LiveSync on Save** option. 
@@ -80,7 +78,7 @@ You can synchronize all your changes to an app deployed on a connected device at
 1. Track the deployment process in the status bar and in the log.
 
 <a id="simulator"></a>
-### Run in the Device Simulator (Available only on Windows)
+### Run in the Device Simulator
 
 You can build and deploy your app in the device simulator with the **Tools** -> **Telerik AppBuilder** -> **Run in Simulator** operation. 
 
@@ -107,7 +105,7 @@ To learn how to contribute to the code base, click [here](CONTRIBUTING.md#contri
 * [Telerik AppBuilder Windows client](http://www.telerik.com/appbuilder/windows-client "The AppBuilder Windows Client"): Lightweight Windows IDE.
 * [Telerik AppBuilder in-browser client](http://www.telerik.com/appbuilder/in-browser-client "The AppBuilder In-Browser Client"): Browser-based IDE that is compatible with most modern web and mobile browsers.
 * [Telerik AppBuilder extension for Visual Studio](http://www.telerik.com/appbuilder/visual-studio-extension "The AppBuilder Extension for Visual Studio"): Extension for the popular Microsoft IDE.
-* [Telerik AppBuilder command-line interface](??? "The AppBuilder package for Sublime Text 2"): A command-line interface that lets you leverage the cloud capabilities of Telerik AppBuilder from the command line.
+* [Telerik AppBuilder command-line interface](http://www.telerik.com/appbuilder/command-line-interface "The AppBuilder command-line interface"): A command-line interface that lets you leverage the cloud capabilities of Telerik AppBuilder from the command line.
 * [Telerik AppBuilder companion app](http://www.telerik.com/appbuilder/companion-app "The AppBuilder Companion App"): iOS testing utility <a href="https://itunes.apple.com/bg/app/icenium-ion/id527547398" target="_blank">available for free on the App Store</a>.
 * [Telerik AppBuilder documentation](http://docs.telerik.com/platform/appbuilder "The documentation resources for Telerik AppBuilder"): Learn more about what you can do with Telerik AppBuilder.
 * [Telerik AppBuilder web page](http://www.telerik.com/appbuilder "The Telerik AppBuilder web page"): Visit the Telerik AppBuilder web site.
@@ -121,4 +119,4 @@ This software is licensed under the Apache 2.0 license, quoted <a href="LICENSE"
 
 [Back to Top][1]
 
-[1]: #telerik-appbuilder-for-sublime-text-2
+[1]: #telerik-appbuilder-for-sublime-text
