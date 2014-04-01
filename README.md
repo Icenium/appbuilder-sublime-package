@@ -48,7 +48,7 @@ After you install this package, you can access the available build and sync comm
 You can build and deploy your app on one device at a time with the **Tools** -> **Telerik AppBuilder** -> **Build and Deploy** operation.
 
 1. Connect your devices.
-1. Select **Tools** -> **Telerik AppBuilder** -> **Build and Deploy**.<br/>If you have connected multiple devices, Sublime Text 2 will display a drop-down list of the connected devices with their unique identifiers and mobile platform.
+1. Select **Tools** -> **Telerik AppBuilder** -> **Build and Deploy**.<br/>If you have connected multiple devices, Sublime Text will display a drop-down list of the connected devices with their unique identifiers and mobile platform.
 1. If prompted, select the device on which you want to deploy.
 1. Track the deployment process in the status bar and in the log.
 1. After the deployment completes, run your app on device.
@@ -73,7 +73,7 @@ You can synchronize all your changes to an app deployed on a connected device at
 1. Verify that you have connected your device and you have deployed the app.
 1. Run your app.
 1. Modify your code and save changes.
-1. Select **Tools** -> **Telerik AppBuilder** -> **LiveSync Application**.<br/>If you have connected multiple devices, Sublime Text 2 will display a drop-down list of the connected devices with their unique identifiers and mobile platform.
+1. Select **Tools** -> **Telerik AppBuilder** -> **LiveSync Application**.<br/>If you have connected multiple devices, Sublime Text will display a drop-down list of the connected devices with their unique identifiers and mobile platform.
 1. Select the device to which you want to sync changes.
 1. Track the deployment process in the status bar and in the log.
 
