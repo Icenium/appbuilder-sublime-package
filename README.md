@@ -80,6 +80,8 @@ You can synchronize all your changes to an app deployed on a connected device at
 <a id="simulator"></a>
 ### Run in the Device Simulator
 
+> In this version of the Telerik AppBuilder CLI, you cannot run your apps in the device simulator on OS X systems. The device simulator will become available for OS X in a future release of Telerik AppBuilder.
+
 You can build and deploy your app in the device simulator with the **Tools** -> **Telerik AppBuilder** -> **Run in Simulator** operation. 
 
 * Select **Tools** -> **Telerik AppBuilder** -> **Run in Simulator**.
