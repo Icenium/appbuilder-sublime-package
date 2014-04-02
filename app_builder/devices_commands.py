@@ -218,6 +218,12 @@ class RunInSimulatorCommand(DevicesCommandBase):
         if self.is_enabled():
             self.choose_project()
 
+    def is_enabled(self):
+        return os.name == "nt" and has_compatible_working_appbuilder_cli()
+
+    def is_visible(self):
+        return os.name == "nt"
+
     def on_project_chosen(self, project_index):
         if project_index >= 0:
             command = ["simulate", "--path", self.projects[project_index][1]]
