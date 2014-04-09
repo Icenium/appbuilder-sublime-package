@@ -27,7 +27,7 @@ def _verify_appbuilder_cli_version(installed_appbuilder_cli_version):
     required_appbuilder_cli_version = parse_version_string(get_config("required_appbuilder_cli_version"))
     if installed_appbuilder_cli_version == required_appbuilder_cli_version:
         _has_compatible_working_appbuilder_cli = True
-        log_info("Telerik AppBuilder has been initialized successfuly")
+        log_info("Telerik AppBuilder has been initialized successfully")
     else:
         _has_compatible_working_appbuilder_cli = False
         log_fail("Cannot load the Telerik AppBuilder package because the required version of Telerik AppBuilder command-line interface is {required_version}.\n".
