@@ -36,13 +36,13 @@ def _log(message, level):
         _log_fail(message)
 
 def _log_error(message):
+    _show_panel()
     _log_info(message)
 
 def _log_warning(message):
     _log_info(message)
 
 def _log_info(message):
-    _show_panel()
     print(message)
 
 def _log_fail(message):

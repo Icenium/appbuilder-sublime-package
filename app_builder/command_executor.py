@@ -4,12 +4,13 @@ import subprocess
 
 from .bootstrapper import get_config
 from .notifier import log_info, log_error, log_fail
-from .thread_progress import ThreadProgress
+from .thread_progress import run_progress_indicator
 from .command_thread import CommandThread
 
 _appbuilder_path = []
 
-def run_command(command, on_data=None, on_done=None, show_progress=True, in_progress_message="Loading",
+def run_command(command, on_data=None, on_done=None, show_progress=True, 
+    in_progress_message="Loading", success_message="", failure_message = "",
     show_status=True, filter_empty_args=True, no_save=False, **kwargs):
     command = _get_appbuilder_path() + command
 
@@ -20,17 +21,15 @@ def run_command(command, on_data=None, on_done=None, show_progress=True, in_prog
     thread.start()
 
     if show_progress:
-        progress = ThreadProgress(thread, in_progress_message, "Success", "Failure")
-        progress.run(0)
+        run_progress_indicator(thread, in_progress_message, success_message, failure_message)
 
     if show_status:
-        message = kwargs.get('status_message', False) or ' '.join(command)
+        message = kwargs.get("status_message", False) or " ".join(command)
         sublime.status_message(message)
 
     return thread
 
-def show_quick_panel(sublime_command, items, on_done):
-    window = sublime_command.get_window()
+def show_quick_panel(window, items, on_done):
     window.show_quick_panel(items, on_done)
 
 def _get_appbuilder_path():

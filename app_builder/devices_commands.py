@@ -2,6 +2,7 @@ import os
 import json
 import sublime
 import sublime_plugin
+import abc
 
 from .bootstrapper import has_compatible_working_appbuilder_cli
 from .notifier import log_info, log_error
@@ -9,109 +10,36 @@ from .command_executor import show_quick_panel, run_command
 from .sublime_events_listener import on_sublime_view_loaded
 from .base_commands import AppBuilderWindowCommandBase
 from .project import Project
+from .projects_space import select_project
+from .devices_space import select_device
 
-class DevicesCommandBase(AppBuilderWindowCommandBase):
-    @property
-    def command_name(self):
-        return ""
-
-    def is_enabled(self):
-        return has_compatible_working_appbuilder_cli()
-
-    def run(self):
-        self.do_run()
-
-    def do_run(self):
-        self.choose_project()
-
-    def choose_project(self):
-        self.projects = []
-
-        project_dir = Project.get_project_dir(self.get_working_dir())
-        if (bool(project_dir)):
-            self.projects.append(project_dir)
-
-        for index, value in enumerate(self.window.folders()):
-            project_dir = Project.get_project_dir(value)
-            if (bool(project_dir)):
-                self.projects.append(project_dir)
-
-        self.projects = list(set(self.projects))
-        self.projects = list(map((lambda project: [Project.get_project_name(project), project]), self.projects))
-
-        projectsCount = len(self.projects)
-        if projectsCount == 1:
-            self.on_project_chosen(0)
-        elif projectsCount > 1:
-            show_quick_panel(self, self.projects, self.on_project_chosen)
-        else:
-            log_info("There are no projects in your currently opened folders")
-
-    def on_project_chosen(self, project_index):
-        if project_index >= 0:
-            self.choose_device(lambda device_index: self.execute(project_index, device_index))
-        else:
-            self.execute(project_index, -1)
-
-    def choose_device(self, callback):
-        self.on_device_chosen = callback
-        command = ["list-devices", "--json"]
-        self.devices = []
-        run_command(command, self.on_device_data_reveived, self.on_devices_data_finished, True, "Retrieving devices")
-
-    def on_device_data_reveived(self, data):
-        try:
-            device = json.loads(data)
-            self.devices.append(device)
-        except ValueError:  # includes simplejson.decoder.JSONDecodeError
-            log_error(data)
-
-    def on_devices_data_finished(self, exit_code):
-        if (exit_code == 0):
-            devicesCount = len(self.devices)
-            if devicesCount == 0:
-                log_info("There are no connected devices")
-                self.on_device_chosen(-1)
-            elif devicesCount == 1:
-                self.on_device_chosen(0)
-            elif devicesCount > 1:
-                devicesList = list(map((lambda device: [device["name"],
-                        "Platform: {platform} {version}".format(platform=device["platform"], version=device["version"]),
-                        "Model: {model}".format(model=device["model"]),
-                        "Vendor: {vendor}".format(vendor=device["vendor"])]),
-                    self.devices))
-                show_quick_panel(self, devicesList, self.on_device_chosen)
-        else:
-            log_error("Command failed with exit code: {code}".format(code = exit_code))
-            self.on_device_chosen(-1)
-
-    def on_data(self, data):
-        log_info(data)
-
-    def on_done(self, exit_code):
-        if exit_code != 0:
-            log_error("Command failed with exit code: {code}".format(code = exit_code))
-
-        log_info("Exit code: {exit_code}".format(exit_code=exit_code))
-
-class DeployCommand(DevicesCommandBase):
+class DeployCommand(AppBuilderWindowCommandBase):
     @property
     def command_name(self):
         return "Deploy"
 
-    def execute(self, project_index, device_index):
-        if project_index < 0 or device_index < 0:
+    def run(self):
+        AppBuilderCommandsHelpers.select_project_and_device(self, self.execute)
+
+    def execute(self, project, device):
+        if project == None or device == None:
             return
 
-        command = ["deploy", "--path", self.projects[project_index][1]]
+        command = ["deploy", "--path", project[1]]
         command.append("--device")
         command.append(self.devices[device_index]["identifier"])
-        run_command(command, self.on_data, self.on_done, True, "Deploying")
+        run_command(command, lambda data: log_info(data), self.on_done, True, "Deploying", "Deployment succeeded", "Deployment failed")
 
-class SyncCommand(DevicesCommandBase):
+    def on_done(succeeded):
+        pass
+
+class SyncCommand(AppBuilderWindowCommandBase):
     @property
     def command_name(self):
         return "Sync"
+
+    def run(self):
+        AppBuilderCommandsHelpers.select_project_and_device(self, self.execute)
 
     def execute(self, project_index, device_index):
         if project_index < 0 or device_index < 0:
@@ -120,9 +48,12 @@ class SyncCommand(DevicesCommandBase):
         command = ["livesync", "--path", self.projects[project_index][1]]
         command.append("--device")
         command.append(self.devices[device_index]["identifier"])
-        run_command(command, self.on_data, self.on_done, True, "Syncing")
+        run_command(command, self.on_data, self.on_done, True, "Syncing", "Sync succeeded", "Sync failed")
 
-class ToggleLiveSyncCommand(DevicesCommandBase):
+    def on_done(self, succeeded):
+        pass
+
+class ToggleLiveSyncCommand(AppBuilderWindowCommandBase):
     viewStatusKey = "LiveSyncStatus"
     isChecked = False
     isStarting = False
@@ -141,7 +72,7 @@ class ToggleLiveSyncCommand(DevicesCommandBase):
         ToggleLiveSyncCommand.isStarting = True
 
         if ToggleLiveSyncCommand.commandThread == None:
-            self.do_run()
+            self.run_implementation()
         else:
             try:
                 ToggleLiveSyncCommand.commandThread.terminate()
@@ -153,13 +84,13 @@ class ToggleLiveSyncCommand(DevicesCommandBase):
     def is_checked(self):
         return ToggleLiveSyncCommand.isChecked
 
-    def execute(self, project_index, device_index):
+    def execute(self, project, device):
         global on_sublime_view_loaded
-        if project_index >= 0 and device_index >= 0:
-            ToggleLiveSyncCommand.projectInSync = self.projects[project_index]
+        if project != None and device != None:
+            ToggleLiveSyncCommand.projectInSync = project
             command = ["livesync", "--watch", "--path", ToggleLiveSyncCommand.projectInSync[1]]
             command.append("--device")
-            command.append(self.devices[device_index]["identifier"])
+            command.append(device["identifier"])
 
             ToggleLiveSyncCommand.commandThread = run_command(command, self.on_data, self.on_done, False)
             ToggleLiveSyncCommand.isChecked = True
@@ -168,18 +99,15 @@ class ToggleLiveSyncCommand(DevicesCommandBase):
 
         ToggleLiveSyncCommand.isStarting = False
 
-    def on_done(self, exit_code):
-        global on_sublime_view_loaded
-        if exit_code != 0:
-            log_error(exit_code)
+    def on_done(self, succeeded):
+        super(ToggleLiveSyncCommand, self).on_done(succeeded)
 
+        global on_sublime_view_loaded
         ToggleLiveSyncCommand.commandThread = None
         ToggleLiveSyncCommand.isChecked = False
         ToggleLiveSyncCommand.projectInSync = None
         on_sublime_view_loaded -= self.on_view_loaded
         ToggleLiveSyncCommand.unmark_views()
-
-        log_info("Exit code: {exit_code}".format(exit_code=exit_code))
 
     def on_view_loaded(self, view):
         ToggleLiveSyncCommand.mark_view(view)
@@ -209,22 +137,32 @@ class ToggleLiveSyncCommand(DevicesCommandBase):
             view.erase_status(ToggleLiveSyncCommand.viewStatusKey)
         ToggleLiveSyncCommand.markedViews = None
 
-class RunInSimulatorCommand(DevicesCommandBase):
+class RunInSimulatorCommand(AppBuilderWindowCommandBase):
     @property
     def command_name(self):
         return "Run in Simulator"
 
-    def run(self):
-        if self.is_enabled():
-            self.choose_project()
-
     def is_enabled(self):
-        return os.name == "nt" and has_compatible_working_appbuilder_cli()
+        return super(RunInSimulatorCommand, self).is_enabled() and os.name == "nt"
 
     def is_visible(self):
         return os.name == "nt"
 
-    def on_project_chosen(self, project_index):
-        if project_index >= 0:
-            command = ["simulate", "--path", self.projects[project_index][1]]
-            run_command(command, self.on_data, self.on_done, True, "Starting simulator")
+    def run(self):
+        select_project(self, self.on_project_chosen)
+
+    def on_project_chosen(self, project):
+        if project != None:
+            command = ["simulate", "--path", project[1]]
+            run_command(command, self.on_data, self.on_done, True, "Starting simulator", "Simulator started", "Simulator could not start")
+
+    def on_data(self, data):
+        log_info(data)
+
+    def on_done(self, succeeded):
+        pass
+
+class AppBuilderCommandsHelpers(object):
+    @staticmethod
+    def select_project_and_device(app_builder_command, callback):
+        select_project(app_builder_command, lambda selected_project: select_device(app_builder_command, lambda selected_device: callback(selected_project, selected_device)) if selected_project != None else callback(None, None))

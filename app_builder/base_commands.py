@@ -1,8 +1,42 @@
 import sublime
 import sublime_plugin
 import os
+import abc
 
-class AppBuilderWindowCommandBase(sublime_plugin.WindowCommand):
+from .bootstrapper import has_compatible_working_appbuilder_cli
+from .notifier import log_error
+
+class AppBuilderCommand(object):
+    __metaclass__ = abc.ABCMeta
+
+    @abc.abstractmethod
+    def command_name(self):
+        pass
+
+    def is_enabled(self):
+        return has_compatible_working_appbuilder_cli()
+
+    @abc.abstractmethod
+    def active_view(self):
+        pass
+
+    @abc.abstractmethod
+    def get_file_name(self):
+        pass
+
+    @abc.abstractmethod
+    def get_relative_file_name(self):
+        pass
+
+    @abc.abstractmethod
+    def get_working_dir(self):
+        pass
+
+    @abc.abstractmethod
+    def get_window(self):
+        pass
+
+class AppBuilderWindowCommandBase(AppBuilderCommand, sublime_plugin.WindowCommand):
     def active_view(self):
         return self.window.active_view()
 
@@ -30,7 +64,7 @@ class AppBuilderWindowCommandBase(sublime_plugin.WindowCommand):
     def get_window(self):
         return self.window
 
-class AppBuilderTextCommandBase(sublime_plugin.TextCommand):
+class AppBuilderTextCommandBase(AppBuilderCommand, sublime_plugin.TextCommand):
     def active_view(self):
         return self.view
 

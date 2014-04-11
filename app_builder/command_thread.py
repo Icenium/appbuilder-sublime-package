@@ -4,7 +4,7 @@ import os
 import sublime
 import functools
 
-from .notifier import log_info, log_error
+from .notifier import log_info, log_error, log_warning
 
 def main_thread(callback, *args, **kwargs):
     sublime.set_timeout(functools.partial(callback, *args, **kwargs), 0)
@@ -45,13 +45,19 @@ class CommandThread(threading.Thread):
                     main_thread(self.on_data, line)
 
             self.proc.wait();
-            main_thread(self.on_done, self.proc.returncode)
+
+            if self.proc.returncode != 0:
+                main_thread(log_error, CommandThread._get_command_failed_message(e.returncode))
+
+            main_thread(self.on_done, self.proc.returncode == 0)
 
         except subprocess.CalledProcessError as e:
-            main_thread(self.on_done, e.returncode)
+            main_thread(log_warning, CommandThread._get_command_failed_message(e.returncode))
+            main_thread(self.on_done, False)
         except OSError as e:
             if e.errno == 2:
-                main_thread(log_error, "AppBuilder could not be found in PATH\nPATH is: %s" % os.environ['PATH'])
+                main_thread(log_warning, "AppBuilder could not be found in PATH\nPATH is: %s" % os.environ["PATH"])
+                main_thread(self.on_done, False)
             else:
                 raise e
 
@@ -59,4 +65,8 @@ class CommandThread(threading.Thread):
         if self.is_alive():
             return False;
         else:
-            return self.proc.returncode == 0
+            return self.proc and self.proc.returncode == 0
+
+    @staticmethod
+    def _get_command_failed_message(exit_code):
+        return "Command failed with exit code: {code}".format(code = exit_code)

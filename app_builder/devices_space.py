@@ -1,0 +1,32 @@
+from .command_executor import show_quick_panel
+
+def select_device(app_builder_command, on_device_selected):
+    devices = []
+
+    add_device_if_not_empty = lambda device: device != None and devices.append(device)
+    on_device_data_reveived = lambda device_data: add_device_if_not_empty(_parse_device_data(device_data))
+    on_devices_data_finished = lambda succeeded: _show_devices_list_and_select_device(app_builder_command, devices, on_device_selected) if succeeded else on_device_selected(None)
+
+    run_command(["list-devices", "--json"], on_device_data_reveived, on_devices_data_finished, True, "Retrieving devices")
+
+def _parse_device_data(device_data):
+    try:
+        return json.loads(device_data)
+    except ValueError:  # includes simplejson.decoder.JSONDecodeError
+        log_error(device_data)
+        return None
+
+def _show_devices_list_and_select_device(app_builder_command, devices, on_device_selected):
+    devicesCount = len(devices)
+    if devicesCount == 0:
+        log_info("There are no connected devices")
+        on_device_selected(None)
+    elif devicesCount == 1:
+        on_device_selected(devices[0])
+    elif devicesCount > 1:
+        devicesList = list(map((lambda device: [device["name"],
+                "Platform: {platform} {version}".format(platform=device["platform"], version=device["version"]),
+                "Model: {model}".format(model=device["model"]),
+                "Vendor: {vendor}".format(vendor=device["vendor"])]),
+            devices))
+        show_quick_panel(app_builder_command.get_window(), devicesList, lambda device_index: on_device_selected(device_index) if device_index >= 0 else on_device_selected(None))

@@ -29,9 +29,9 @@ def plugin_loaded():
         if data:
             installed_appbuilder_cli_version = parse_version_string(data)
 
-    def on_done(exit_code):
+    def on_done(succeeded):
         global installed_appbuilder_cli_version
-        if exit_code == 0:
+        if succeeded:
             bootstrapper.initialize(installed_appbuilder_cli_version)
         else:
             installed_appbuilder_cli_version = None
