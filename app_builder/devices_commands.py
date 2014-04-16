@@ -1,19 +1,17 @@
 import os
-import json
 import sublime
 import sublime_plugin
 import abc
 
 from .bootstrapper import has_compatible_working_appbuilder_cli
 from .notifier import log_info, log_error
-from .command_executor import show_quick_panel, run_command
 from .sublime_events_listener import on_sublime_view_loaded
-from .base_commands import AppBuilderWindowCommandBase
+from .base_commands import RegularAppBuilderCommand, ToggleAppBuilderCommand
 from .project import Project
 from .projects_space import select_project
 from .devices_space import select_device
 
-class DeployCommand(AppBuilderWindowCommandBase):
+class DeployCommand(RegularAppBuilderCommand):
     @property
     def command_name(self):
         return "Deploy"
@@ -23,91 +21,83 @@ class DeployCommand(AppBuilderWindowCommandBase):
 
     def execute(self, project, device):
         if project == None or device == None:
+            self.on_finished(False)
             return
 
         command = ["deploy", "--path", project[1]]
         command.append("--device")
-        command.append(self.devices[device_index]["identifier"])
-        run_command(command, lambda data: log_info(data), self.on_done, True, "Deploying", "Deployment succeeded", "Deployment failed")
+        command.append(device["identifier"])
+        self.run_command(command, True, "Deploying", "Deployment succeeded", "Deployment failed")
 
-    def on_done(succeeded):
-        pass
-
-class SyncCommand(AppBuilderWindowCommandBase):
+class SyncCommand(RegularAppBuilderCommand):
     @property
     def command_name(self):
         return "Sync"
 
-    def run(self):
+    def on_started(self):
         AppBuilderCommandsHelpers.select_project_and_device(self, self.execute)
 
-    def execute(self, project_index, device_index):
-        if project_index < 0 or device_index < 0:
+    def execute(self, project, device):
+        if project == None or device == None:
+            self.on_finished(False)
             return
 
-        command = ["livesync", "--path", self.projects[project_index][1]]
+        command = ["livesync", "--path", project[1]]
         command.append("--device")
-        command.append(self.devices[device_index]["identifier"])
-        run_command(command, self.on_data, self.on_done, True, "Syncing", "Sync succeeded", "Sync failed")
+        command.append(device["identifier"])
+        run_command(command, True, "Syncing", "Sync succeeded", "Sync failed")
 
-    def on_done(self, succeeded):
-        pass
+class RunInSimulatorCommand(RegularAppBuilderCommand):
+    @property
+    def command_name(self):
+        return "Run in Simulator"
 
-class ToggleLiveSyncCommand(AppBuilderWindowCommandBase):
+    def is_enabled(self):
+        return super(RunInSimulatorCommand, self).is_enabled() and os.name == "nt"
+
+    def is_visible(self):
+        return os.name == "nt"
+
+    def on_started(self):
+        select_project(self, self.on_project_selected)
+
+    def on_project_selected(self, project):
+        if project == None:
+            self.on_finished(False)
+        else:
+            command = ["simulate", "--path", project[1]]
+            self.run_command(command, True, "Starting simulator", "Simulator started", "Simulator could not start")
+
+class ToggleLiveSyncCommand(ToggleAppBuilderCommand):
     viewStatusKey = "LiveSyncStatus"
-    isChecked = False
-    isStarting = False
-    commandThread = None
     projectInSync = None
-    markedViews = None
 
     @property
     def command_name(self):
         return "Live Sync"
 
-    def run(self):
-        if ToggleLiveSyncCommand.isStarting:
-            return
-
-        ToggleLiveSyncCommand.isStarting = True
-
-        if ToggleLiveSyncCommand.commandThread == None:
-            self.run_implementation()
-        else:
-            try:
-                ToggleLiveSyncCommand.commandThread.terminate()
-            finally:
-                ToggleLiveSyncCommand.commandThread = None
-                ToggleLiveSyncCommand.isStarting = False
-                ToggleLiveSyncCommand.isChecked = False
-
-    def is_checked(self):
-        return ToggleLiveSyncCommand.isChecked
+    def on_starting(self):
+        AppBuilderCommandsHelpers.select_project_and_device(self, lambda project, device: self.execute(project, device))
 
     def execute(self, project, device):
         global on_sublime_view_loaded
-        if project != None and device != None:
+        if project != None or device != None:
             ToggleLiveSyncCommand.projectInSync = project
             command = ["livesync", "--watch", "--path", ToggleLiveSyncCommand.projectInSync[1]]
             command.append("--device")
             command.append(device["identifier"])
 
-            ToggleLiveSyncCommand.commandThread = run_command(command, self.on_data, self.on_done, False)
-            ToggleLiveSyncCommand.isChecked = True
+            self.run_command(command)
             ToggleLiveSyncCommand.init_mark_views(self.window.views())
             on_sublime_view_loaded += self.on_view_loaded
 
-        ToggleLiveSyncCommand.isStarting = False
+        self.on_started()
 
-    def on_done(self, succeeded):
-        super(ToggleLiveSyncCommand, self).on_done(succeeded)
-
+    def on_finished(self, succeeded):
         global on_sublime_view_loaded
-        ToggleLiveSyncCommand.commandThread = None
-        ToggleLiveSyncCommand.isChecked = False
-        ToggleLiveSyncCommand.projectInSync = None
         on_sublime_view_loaded -= self.on_view_loaded
         ToggleLiveSyncCommand.unmark_views()
+        super(ToggleAppBuilderCommand, self).on_finished(succeded)
 
     def on_view_loaded(self, view):
         ToggleLiveSyncCommand.mark_view(view)
@@ -136,31 +126,6 @@ class ToggleLiveSyncCommand(AppBuilderWindowCommandBase):
         for view in ToggleLiveSyncCommand.markedViews:
             view.erase_status(ToggleLiveSyncCommand.viewStatusKey)
         ToggleLiveSyncCommand.markedViews = None
-
-class RunInSimulatorCommand(AppBuilderWindowCommandBase):
-    @property
-    def command_name(self):
-        return "Run in Simulator"
-
-    def is_enabled(self):
-        return super(RunInSimulatorCommand, self).is_enabled() and os.name == "nt"
-
-    def is_visible(self):
-        return os.name == "nt"
-
-    def run(self):
-        select_project(self, self.on_project_chosen)
-
-    def on_project_chosen(self, project):
-        if project != None:
-            command = ["simulate", "--path", project[1]]
-            run_command(command, self.on_data, self.on_done, True, "Starting simulator", "Simulator started", "Simulator could not start")
-
-    def on_data(self, data):
-        log_info(data)
-
-    def on_done(self, succeeded):
-        pass
 
 class AppBuilderCommandsHelpers(object):
     @staticmethod

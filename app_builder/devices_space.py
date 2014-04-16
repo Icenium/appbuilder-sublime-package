@@ -1,4 +1,7 @@
-from .command_executor import show_quick_panel
+import json
+
+from .command_executor import show_quick_panel, run_command
+from .notifier import log_info, log_error
 
 def select_device(app_builder_command, on_device_selected):
     devices = []
@@ -29,4 +32,4 @@ def _show_devices_list_and_select_device(app_builder_command, devices, on_device
                 "Model: {model}".format(model=device["model"]),
                 "Vendor: {vendor}".format(vendor=device["vendor"])]),
             devices))
-        show_quick_panel(app_builder_command.get_window(), devicesList, lambda device_index: on_device_selected(device_index) if device_index >= 0 else on_device_selected(None))
+        show_quick_panel(app_builder_command.get_window(), devicesList, lambda device_index: on_device_selected(devices[device_index]) if device_index >= 0 else on_device_selected(None))

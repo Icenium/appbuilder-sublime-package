@@ -4,39 +4,12 @@ import os
 import abc
 
 from .bootstrapper import has_compatible_working_appbuilder_cli
-from .notifier import log_error
+from .command_executor import run_command
+from .notifier import log_info, log_error
 
-class AppBuilderCommand(object):
+class AppBuilderCommandBase(sublime_plugin.WindowCommand):
     __metaclass__ = abc.ABCMeta
 
-    @abc.abstractmethod
-    def command_name(self):
-        pass
-
-    def is_enabled(self):
-        return has_compatible_working_appbuilder_cli()
-
-    @abc.abstractmethod
-    def active_view(self):
-        pass
-
-    @abc.abstractmethod
-    def get_file_name(self):
-        pass
-
-    @abc.abstractmethod
-    def get_relative_file_name(self):
-        pass
-
-    @abc.abstractmethod
-    def get_working_dir(self):
-        pass
-
-    @abc.abstractmethod
-    def get_window(self):
-        pass
-
-class AppBuilderWindowCommandBase(AppBuilderCommand, sublime_plugin.WindowCommand):
     def active_view(self):
         return self.window.active_view()
 
@@ -46,10 +19,10 @@ class AppBuilderWindowCommandBase(AppBuilderCommand, sublime_plugin.WindowComman
             return view.file_name()
 
     def get_file_name(self):
-        return ''
+        return ""
 
     def get_relative_file_name(self):
-        return ''
+        return ""
 
     def get_working_dir(self):
         file_name = self._active_file_name()
@@ -64,23 +37,88 @@ class AppBuilderWindowCommandBase(AppBuilderCommand, sublime_plugin.WindowComman
     def get_window(self):
         return self.window
 
-class AppBuilderTextCommandBase(AppBuilderCommand, sublime_plugin.TextCommand):
-    def active_view(self):
-        return self.view
+    @abc.abstractmethod
+    def command_name(self):
+        pass
 
-    def get_file_name(self):
-        return os.path.basename(self.view.file_name())
+    def is_enabled(self):
+        return has_compatible_working_appbuilder_cli()
 
-    def get_relative_file_name(self):
-        working_dir = self.get_working_dir()
-        file_path = working_dir.replace(working_dir, '')[1:]
-        file_name = os.path.join(file_path, self.get_file_name())
+    def run_command(self, command, show_progress, in_progress_message, success_message, failure_message):
+        command_thread = run_command(command, self.on_data, self.on_finished,
+            show_progress, in_progress_message, success_message, failure_message)
+        return command_thread
 
-        # windows issues
-        return file_name.replace('\\', '/')
+    def on_data(self, data):
+        log_info(data)
 
-    def get_working_dir(self):
-        return os.path.realpath(os.path.dirname(self.view.file_name()))
+    def on_finished(self, succeded):
+        if succeded:
+            log_info("%s finished successfully" % \
+                (self.command_name))
+        else:
+            log_info("%s finished unsuccessfully" % \
+                (self.command_name))
 
-    def get_window(self):
-        return self.view.window() or sublime.active_window()
+class RegularAppBuilderCommand(AppBuilderCommandBase):
+    _is_running = False
+
+    def is_enabled(self):
+        return super(RegularAppBuilderCommand, self).is_enabled() and not RegularAppBuilderCommand._is_running
+
+    def run(self):
+        RegularAppBuilderCommand._is_running = True
+        self.on_started()
+
+    @abc.abstractmethod
+    def on_started(self):
+        pass
+
+    def on_finished(self, succeded):
+        RegularAppBuilderCommand._is_running = False
+        super(RegularAppBuilderCommand, self).on_finished(succeded)
+
+class ToggleAppBuilderCommand(AppBuilderCommandBase):
+    __metaclass__ = abc.ABCMeta
+
+    _is_checked = False
+    _is_starting = False
+    _command_thread = None
+
+    def run(self):
+        if ToggleAppBuilderCommand._is_starting:
+            return
+
+        ToggleAppBuilderCommand._is_starting = True
+
+        if ToggleAppBuilderCommand._command_thread == None:
+            self.on_starting()
+        else:
+            try:
+                ToggleAppBuilderCommand._command_thread.terminate()
+            finally:
+                ToggleAppBuilderCommand._command_thread = None
+                ToggleAppBuilderCommand._is_starting = False
+                ToggleAppBuilderCommand._is_checked = False
+
+    def run_command(command):
+        ToggleAppBuilderCommand._command_thread = super(RegularAppBuilderCommand, self).run_command(command,
+            self.on_data, self.on_finished, show_progress, in_progress_message, success_message, failure_message)
+
+        ToggleAppBuilderCommand._is_checked = True
+
+    def is_checked(self):
+        return ToggleAppBuilderCommand._is_checked
+
+    @abc.abstractmethod
+    def on_starting(self):
+        pass
+
+    def on_started(self):
+        ToggleAppBuilderCommand._is_starting = False
+
+    def on_finished(self, succeded):
+        ToggleAppBuilderCommand._command_thread = None
+        ToggleAppBuilderCommand._is_checked = False
+        ToggleAppBuilderCommand._project_in_sync = None
+        super(ToggleAppBuilderCommand, self).on_finished(succeded)

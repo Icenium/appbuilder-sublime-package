@@ -47,7 +47,7 @@ class CommandThread(threading.Thread):
             self.proc.wait();
 
             if self.proc.returncode != 0:
-                main_thread(log_error, CommandThread._get_command_failed_message(e.returncode))
+                main_thread(log_error, CommandThread._get_command_failed_message(self.proc.returncode))
 
             main_thread(self.on_done, self.proc.returncode == 0)
 

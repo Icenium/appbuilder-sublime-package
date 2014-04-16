@@ -9,7 +9,7 @@ from .command_thread import CommandThread
 
 _appbuilder_path = []
 
-def run_command(command, on_data=None, on_done=None, show_progress=True, 
+def run_command(command, on_data=None, on_done=None, show_progress=True,
     in_progress_message="Loading", success_message="", failure_message = "",
     show_status=True, filter_empty_args=True, no_save=False, **kwargs):
     command = _get_appbuilder_path() + command
