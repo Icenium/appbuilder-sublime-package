@@ -49,15 +49,15 @@ class CommandThread(threading.Thread):
             if self.proc.returncode != 0:
                 main_thread(log_error, CommandThread._get_command_failed_message(self.proc.returncode))
 
-            main_thread(self.on_done, self.proc.returncode == 0)
+            self._on_finished(self.proc.returncode == 0)
 
         except subprocess.CalledProcessError as e:
             main_thread(log_warning, CommandThread._get_command_failed_message(e.returncode))
-            main_thread(self.on_done, False)
+            self._on_finished(False)
         except OSError as e:
             if e.errno == 2:
                 main_thread(log_warning, "AppBuilder could not be found in PATH\nPATH is: %s" % os.environ["PATH"])
-                main_thread(self.on_done, False)
+                self._on_finished(False)
             else:
                 raise e
 
@@ -66,6 +66,10 @@ class CommandThread(threading.Thread):
             return False;
         else:
             return self.proc and self.proc.returncode == 0
+
+    def _on_finished(self, succeeded):
+        if self.on_done:
+            main_thread(self.on_done, succeeded)
 
     @staticmethod
     def _get_command_failed_message(exit_code):

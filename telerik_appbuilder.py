@@ -11,16 +11,18 @@ try:
     from .app_builder import *
     from .app_builder import command_executor
     from .app_builder import bootstrapper
-    from .app_builder.notifier import log_fail
+    from .app_builder.notifier import log_fail, log_error
     from .app_builder.helpers import parse_version_string
+    from .app_builder.feature_usage_tracking import ensure_feature_usage_tracking_is_set
 
 except (ValueError):
     # Python 2
     from app_builder import *
     from app_builder import command_executor
     from app_builder import bootstrapper
-    from app_builder.notifier import log_fail
+    from app_builder.notifier import log_fail, log_error
     from app_builder.helpers import parse_version_string
+    from app_builder.feature_usage_tracking import ensure_feature_usage_tracking_is_set
 
 def plugin_loaded():
     installed_appbuilder_cli_version = None
@@ -33,6 +35,8 @@ def plugin_loaded():
         global installed_appbuilder_cli_version
         if succeeded:
             bootstrapper.initialize(installed_appbuilder_cli_version)
+            if bootstrapper.has_compatible_working_appbuilder_cli():
+                ensure_feature_usage_tracking_is_set()
         else:
             installed_appbuilder_cli_version = None
             log_fail("Cannot load the Telerik AppBuilder package because the Telerik AppBuilder command-line interface is not installed properly on your system.\n" +
