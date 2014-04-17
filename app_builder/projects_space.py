@@ -1,5 +1,6 @@
 from .command_executor import show_quick_panel
 from .project import Project
+from .notifier import log_info, log_error
 
 def select_project(app_builder_command, on_project_selected):
     projects = []

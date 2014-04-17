@@ -11,12 +11,17 @@ from .project import Project
 from .projects_space import select_project
 from .devices_space import select_device
 
+class AppBuilderCommandsHelpers(object):
+    @staticmethod
+    def select_project_and_device(app_builder_command, callback):
+        select_project(app_builder_command, lambda selected_project: select_device(app_builder_command, lambda selected_device: callback(selected_project, selected_device)) if selected_project != None else callback(None, None))
+
 class DeployCommand(RegularAppBuilderCommand):
     @property
     def command_name(self):
         return "Deploy"
 
-    def run(self):
+    def on_started(self):
         AppBuilderCommandsHelpers.select_project_and_device(self, self.execute)
 
     def execute(self, project, device):
@@ -45,7 +50,7 @@ class SyncCommand(RegularAppBuilderCommand):
         command = ["livesync", "--path", project[1]]
         command.append("--device")
         command.append(device["identifier"])
-        run_command(command, True, "Syncing", "Sync succeeded", "Sync failed")
+        self.run_command(command, True, "Syncing", "Sync succeeded", "Sync failed")
 
 class RunInSimulatorCommand(RegularAppBuilderCommand):
     @property
@@ -69,8 +74,11 @@ class RunInSimulatorCommand(RegularAppBuilderCommand):
             self.run_command(command, True, "Starting simulator", "Simulator started", "Simulator could not start")
 
 class ToggleLiveSyncCommand(ToggleAppBuilderCommand):
-    viewStatusKey = "LiveSyncStatus"
-    projectInSync = None
+    def __init__(self):
+        super(ToggleLiveSyncCommand, self).__init__()
+        self.viewStatusKey = "LiveSyncStatus"
+        self.projectInSync = False
+        self._command_thread = None
 
     @property
     def command_name(self):
@@ -82,13 +90,13 @@ class ToggleLiveSyncCommand(ToggleAppBuilderCommand):
     def execute(self, project, device):
         global on_sublime_view_loaded
         if project != None or device != None:
-            ToggleLiveSyncCommand.projectInSync = project
-            command = ["livesync", "--watch", "--path", ToggleLiveSyncCommand.projectInSync[1]]
+            self.projectInSync = project
+            command = ["livesync", "--watch", "--path", self.projectInSync[1]]
             command.append("--device")
             command.append(device["identifier"])
 
             self.run_command(command)
-            ToggleLiveSyncCommand.init_mark_views(self.window.views())
+            self.init_mark_views(self.get_window().views())
             on_sublime_view_loaded += self.on_view_loaded
 
         self.on_started()
@@ -96,38 +104,29 @@ class ToggleLiveSyncCommand(ToggleAppBuilderCommand):
     def on_finished(self, succeeded):
         global on_sublime_view_loaded
         on_sublime_view_loaded -= self.on_view_loaded
-        ToggleLiveSyncCommand.unmark_views()
-        super(ToggleAppBuilderCommand, self).on_finished(succeded)
+        self.unmark_views()
+        super(ToggleLiveSyncCommand, self).on_finished(succeeded)
 
     def on_view_loaded(self, view):
-        ToggleLiveSyncCommand.mark_view(view)
+        self.mark_view(view)
 
-    @staticmethod
-    def init_mark_views(views):
-        ToggleLiveSyncCommand.markedViews = list()
+    def init_mark_views(self, views):
+        self.markedViews = list()
         for view in views:
-            ToggleLiveSyncCommand.mark_view(view)
+            self.mark_view(view)
 
-    @staticmethod
-    def mark_view(view):
-        if ToggleLiveSyncCommand.is_in_the_project(view):
-            view.set_status(ToggleLiveSyncCommand.viewStatusKey, "LiveSync ON")
+    def mark_view(self, view):
+        if self.is_in_the_project(view):
+            view.set_status(self.viewStatusKey, "LiveSync ON")
         else:
-            view.set_status(ToggleLiveSyncCommand.viewStatusKey, "LiveSync OFF (ON for '{name}' project)".
-                format(name=ToggleLiveSyncCommand.projectInSync[0]))
-        ToggleLiveSyncCommand.markedViews.append(view)
+            view.set_status(self.viewStatusKey, "LiveSync OFF (ON for '{name}' project)".
+                format(name=self.projectInSync[0]))
+        self.markedViews.append(view)
 
-    @staticmethod
-    def is_in_the_project(view):
-        return view.file_name().startswith(ToggleLiveSyncCommand.projectInSync[1])
+    def is_in_the_project(self, view):
+        return view.file_name().startswith(self.projectInSync[1])
 
-    @staticmethod
-    def unmark_views():
-        for view in ToggleLiveSyncCommand.markedViews:
-            view.erase_status(ToggleLiveSyncCommand.viewStatusKey)
-        ToggleLiveSyncCommand.markedViews = None
-
-class AppBuilderCommandsHelpers(object):
-    @staticmethod
-    def select_project_and_device(app_builder_command, callback):
-        select_project(app_builder_command, lambda selected_project: select_device(app_builder_command, lambda selected_device: callback(selected_project, selected_device)) if selected_project != None else callback(None, None))
+    def unmark_views(self):
+        for view in self.markedViews:
+            view.erase_status(self.viewStatusKey)
+        self.markedViews = None

@@ -7,11 +7,11 @@ from .bootstrapper import has_compatible_working_appbuilder_cli
 from .command_executor import run_command
 from .notifier import log_info, log_error
 
-class AppBuilderCommandBase(sublime_plugin.WindowCommand):
+class AppBuilderCommandBase(sublime_plugin.ApplicationCommand):
     __metaclass__ = abc.ABCMeta
 
     def active_view(self):
-        return self.window.active_view()
+        return self.get_window().active_view()
 
     def _active_file_name(self):
         view = self.active_view()
@@ -30,12 +30,12 @@ class AppBuilderCommandBase(sublime_plugin.WindowCommand):
             return os.path.realpath(os.path.dirname(file_name))
         else:
             try:  # handle case with no open folder
-                return self.window.folders()[0]
+                return self.get_window().folders()[0]
             except IndexError:
                 return ''
 
     def get_window(self):
-        return self.window
+        return sublime.active_window()
 
     @abc.abstractmethod
     def command_name(self):
@@ -44,7 +44,10 @@ class AppBuilderCommandBase(sublime_plugin.WindowCommand):
     def is_enabled(self):
         return has_compatible_working_appbuilder_cli()
 
-    def run_command(self, command, show_progress, in_progress_message, success_message, failure_message):
+    def run_command(self, command, show_progress = False, in_progress_message = "", success_message = "", failure_message = ""):
+        self.get_command_thread(command, show_progress, in_progress_message, success_message, failure_message)
+
+    def get_command_thread(self, command, show_progress = False, in_progress_message = "", success_message = "", failure_message = ""):
         command_thread = run_command(command, self.on_data, self.on_finished,
             show_progress, in_progress_message, success_message, failure_message)
         return command_thread
@@ -61,13 +64,15 @@ class AppBuilderCommandBase(sublime_plugin.WindowCommand):
                 (self.command_name))
 
 class RegularAppBuilderCommand(AppBuilderCommandBase):
-    _is_running = False
+    def __init__(self):
+        super(RegularAppBuilderCommand, self).__init__()
+        self._is_running = False
 
     def is_enabled(self):
-        return super(RegularAppBuilderCommand, self).is_enabled() and not RegularAppBuilderCommand._is_running
+        return super(RegularAppBuilderCommand, self).is_enabled() and not self._is_running
 
     def run(self):
-        RegularAppBuilderCommand._is_running = True
+        self._is_running = True
         self.on_started()
 
     @abc.abstractmethod
@@ -75,50 +80,55 @@ class RegularAppBuilderCommand(AppBuilderCommandBase):
         pass
 
     def on_finished(self, succeded):
-        RegularAppBuilderCommand._is_running = False
+        self._is_running = False
         super(RegularAppBuilderCommand, self).on_finished(succeded)
 
 class ToggleAppBuilderCommand(AppBuilderCommandBase):
     __metaclass__ = abc.ABCMeta
 
-    _is_checked = False
-    _is_starting = False
-    _command_thread = None
+    def __init__(self):
+        super(ToggleAppBuilderCommand, self).__init__()
+        self._is_starting = False
+        self._is_finishing = False
+        self._is_checked = False
+        self._command_thread = None
 
     def run(self):
-        if ToggleAppBuilderCommand._is_starting:
+        if self._is_starting or self._is_finishing:
             return
 
-        ToggleAppBuilderCommand._is_starting = True
+        self._is_starting = True
 
-        if ToggleAppBuilderCommand._command_thread == None:
+        if self._command_thread == None:
             self.on_starting()
         else:
             try:
-                ToggleAppBuilderCommand._command_thread.terminate()
+                self._is_finishing = True
+                self._command_thread.terminate()
+            except:
+                self._command_thread = None
+                self._is_checked = False
+                self._is_finishing = False
             finally:
-                ToggleAppBuilderCommand._command_thread = None
-                ToggleAppBuilderCommand._is_starting = False
-                ToggleAppBuilderCommand._is_checked = False
+                self._is_starting = False
 
-    def run_command(command):
-        ToggleAppBuilderCommand._command_thread = super(RegularAppBuilderCommand, self).run_command(command,
-            self.on_data, self.on_finished, show_progress, in_progress_message, success_message, failure_message)
-
-        ToggleAppBuilderCommand._is_checked = True
+    def run_command(self, command):
+        self._command_thread = self.get_command_thread(command)
+        self._is_checked = True
 
     def is_checked(self):
-        return ToggleAppBuilderCommand._is_checked
+        return self._is_checked
 
     @abc.abstractmethod
     def on_starting(self):
         pass
 
     def on_started(self):
-        ToggleAppBuilderCommand._is_starting = False
+        self._is_starting = False
 
     def on_finished(self, succeded):
-        ToggleAppBuilderCommand._command_thread = None
-        ToggleAppBuilderCommand._is_checked = False
-        ToggleAppBuilderCommand._project_in_sync = None
+        self._command_thread = None
+        self._is_checked = False
+        self._project_in_sync = None
+        self._is_finishing = False
         super(ToggleAppBuilderCommand, self).on_finished(succeded)
