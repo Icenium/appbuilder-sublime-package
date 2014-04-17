@@ -1,8 +1,7 @@
 import sublime
 
-addend = 1
-size = 8
-iterations_before_release = 20
+_acc_value = 1
+_busy_indicator_size = 8
 
 _commandsInProgress = []
 
@@ -17,12 +16,12 @@ def _add_command(commandInProgressModel):
     global _commandsInProgress
     _commandsInProgress.append(commandInProgressModel)
 
-def _run(r):
+def _run(index):
     global _commandsInProgress
     if len(_commandsInProgress) >= 1:
         in_progress_part = _get_in_progress_part()
         finished_part = _get_finished_part()
-        busy_animation_part = _get_busy_animation_part(r)
+        busy_animation_part = _get_busy_animation_part(index)
 
         status_message = ""
         if in_progress_part:
@@ -35,7 +34,7 @@ def _run(r):
         sublime.status_message(status_message)
 
         _update_commands_models()
-        sublime.set_timeout(lambda: _run(r + addend), 100)
+        sublime.set_timeout(lambda: _run(index + _acc_value), 100)
     else:
         sublime.status_message("")
 
@@ -54,27 +53,27 @@ def _get_finished_part():
         and commandModel.get_result_message() != ""]
     return " | ".join(finished_commands_messages);
 
-def _get_busy_animation_part(r):
-    before = r % size
-    after = (size - 1) - before
+def _get_busy_animation_part(index):
+    before = index % _busy_indicator_size
+    after = (_busy_indicator_size - 1) - before
 
     if not after:
-        addend = -1
+        _acc_value = -1
     if not before:
-        addend = 1
+        _acc_value = 1
 
     return "[%s = %s]" % \
         ("-" * before, "-" * after)
 
 class CommandInProgressModel:
+    _iterations_before_release = 20
+
     def __init__(self, thread, message, success_message, fail_message):
-        global iterations_before_release
+        self.iterations_before_release = CommandInProgressModel._iterations_before_release
         self.thread = thread
         self.message = message
         self.success_message = success_message
         self.fail_message = fail_message
-
-        self.iterations_before_release = iterations_before_release
 
     def is_running(self):
         return self.thread.is_alive()
