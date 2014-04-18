@@ -20,6 +20,13 @@ This package lets you run your hybrid mobile app on connected devices or in the 
 Installation
 ===
 
+Latest version: Telerik AppBuilder 2.1.1  
+Release date: 2014, April 23  
+
+> This is a maintenance release. For a complete list of the features available in Telerik AppBuilder 2.1.1, see <a href="http://docs.telerik.com/platform/appbuilder/release-notes/v2-1-1" target="_blank">Telerik AppBuilder 2.1.1 Release Notes</a>.
+
+> For a complete list of the features available in the last major release, Telerik AppBuilder 2.1, see <a href="http://docs.telerik.com/platform/appbuilder/release-notes/v2-1" target="_blank">Telerik AppBuilder 2.1 Release Notes</a>.
+
 ### Software Requirements
 
 * Windows or OS X Mavericks
@@ -65,7 +72,7 @@ When you modify your code and save your changes, your running app will refresh a
 
 The app refreshes automatically.
 
-<a id="sync"></a>
+<a name="sync"></a>
 ### Reload the App on Device
 
 You can synchronize all your changes to an app deployed on a connected device at once with the **Tools** -> **Telerik AppBuilder** -> **LiveSync Application** operation. This operation replaces all application files at once.
@@ -77,7 +84,7 @@ You can synchronize all your changes to an app deployed on a connected device at
 1. Select the device to which you want to sync changes.
 1. Track the deployment process in the status bar and in the log.
 
-<a id="simulator"></a>
+<a name="simulator"></a>
 ### Run in the Device Simulator
 
 > In this version of the Telerik AppBuilder CLI, you cannot run your apps in the device simulator on OS X systems. The device simulator will become available for OS X in a future release of Telerik AppBuilder.
@@ -90,7 +97,7 @@ In the device simulator, you can change the target device form factor, mobile pl
 
 [Back to Top][1]
 
-<a id="contribute"></a>Contribution
+<a name="contribute"></a>Contribution
 ===
 
 To learn how to log a bug that you just discovered, click [here](CONTRIBUTING.md#report-an-issue).
@@ -101,7 +108,7 @@ To learn how to contribute to the code base, click [here](CONTRIBUTING.md#contri
 
 [Back to Top][1]
 
-<a id="more"></a>More Telerik AppBuilder Tools and Resources
+<a name="more"></a>More Telerik AppBuilder Tools and Resources
 ===
 
 * [Telerik AppBuilder Windows client](http://www.telerik.com/appbuilder/windows-client "The AppBuilder Windows Client"): Lightweight Windows IDE.
@@ -114,7 +121,7 @@ To learn how to contribute to the code base, click [here](CONTRIBUTING.md#contri
 
 [Back to Top][1]
 
-<a id="license"></a>License
+<a name="license"></a>License
 ===
 
 This software is licensed under the Apache 2.0 license, quoted <a href="LICENSE" target="_blank">here</a>.
