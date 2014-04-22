@@ -19,7 +19,7 @@ def _load_config():
         "osx_appbuilder_path": settings.get("osx_appbuilder_path") or "/usr/local/bin/appbuilder",
         "win_node_name": "node",
         "win_appbuilder_name": "appbuilder",
-        "required_appbuilder_cli_version": "2.1.0"
+        "required_appbuilder_cli_version": "2.1.1"
     }
 
 def _verify_appbuilder_cli_version(installed_appbuilder_cli_version):
