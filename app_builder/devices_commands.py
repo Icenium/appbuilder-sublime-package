@@ -113,7 +113,8 @@ class ToggleLiveSyncCommand(ToggleAppBuilderCommand):
     def init_mark_views(self, views):
         self.markedViews = list()
         for view in views:
-            self.mark_view(view)
+            if view.file_name():
+                self.mark_view(view)
 
     def mark_view(self, view):
         if self.is_in_the_project(view):
