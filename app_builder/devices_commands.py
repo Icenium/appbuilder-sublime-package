@@ -37,7 +37,7 @@ class DeployCommand(RegularAppBuilderCommand):
 class SyncCommand(RegularAppBuilderCommand):
     @property
     def command_name(self):
-        return "Sync"
+        return "LiveSync Application"
 
     def on_started(self):
         AppBuilderCommandsHelpers.select_project_and_device(self, self.execute)
@@ -79,33 +79,46 @@ class ToggleLiveSyncCommand(ToggleAppBuilderCommand):
         self.viewStatusKey = "LiveSyncStatus"
         self.projectInSync = False
         self._command_thread = None
+        self.markedViews = None
 
     @property
     def command_name(self):
-        return "Live Sync"
+        return "Enable LiveSync on Save"
 
     def on_starting(self):
         AppBuilderCommandsHelpers.select_project_and_device(self, lambda project, device: self.execute(project, device))
 
     def execute(self, project, device):
-        global on_sublime_view_loaded
-        if project != None or device != None:
+        if project != None and device != None:
             self.projectInSync = project
             command = ["livesync", "--watch", "--path", self.projectInSync[1]]
             command.append("--device")
             command.append(device["identifier"])
 
             self.run_command(command)
-            self.init_mark_views(self.get_window().views())
-            on_sublime_view_loaded += self.on_view_loaded
 
-        self.on_started()
+            self.init_mark_views(self.get_window().views())
+            self.subscribe_to_sublime_view_loaded()
+
+            self.on_started()
+        else:
+            self.on_finished(False)
 
     def on_finished(self, succeeded):
-        global on_sublime_view_loaded
-        on_sublime_view_loaded -= self.on_view_loaded
-        self.unmark_views()
+        self.unsubscribe_from_sublime_view_loaded()
+        if self.has_marked_views():
+            self.unmark_views()
+
         super(ToggleLiveSyncCommand, self).on_finished(succeeded)
+
+    def subscribe_to_sublime_view_loaded(self):
+        global on_sublime_view_loaded
+        on_sublime_view_loaded += self.on_view_loaded
+
+    def unsubscribe_from_sublime_view_loaded(self):
+        global on_sublime_view_loaded
+        on_sublime_view_loaded += self.on_view_loaded
+        on_sublime_view_loaded -= self.on_view_loaded
 
     def on_view_loaded(self, view):
         self.mark_view(view)
@@ -126,6 +139,9 @@ class ToggleLiveSyncCommand(ToggleAppBuilderCommand):
 
     def is_in_the_project(self, view):
         return view.file_name().startswith(self.projectInSync[1])
+
+    def has_marked_views(self):
+        return self.markedViews != None and len(self.markedViews) > 0
 
     def unmark_views(self):
         for view in self.markedViews:

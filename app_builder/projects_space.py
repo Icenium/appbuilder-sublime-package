@@ -23,3 +23,4 @@ def select_project(app_builder_command, on_project_selected):
         show_quick_panel(app_builder_command.get_window(), projects, lambda project_index: on_project_selected(projects[project_index]) if project_index >= 0 else on_project_selected(None))
     else:
         log_info("There are no projects in your currently opened folders")
+        on_project_selected(None)

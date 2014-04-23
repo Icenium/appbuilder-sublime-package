@@ -60,7 +60,7 @@ class AppBuilderCommandBase(sublime_plugin.ApplicationCommand):
             log_info("%s finished successfully" % \
                 (self.command_name))
         else:
-            log_info("%s finished unsuccessfully" % \
+            log_error("%s failed" % \
                 (self.command_name))
 
 class RegularAppBuilderCommand(AppBuilderCommandBase):
@@ -127,6 +127,7 @@ class ToggleAppBuilderCommand(AppBuilderCommandBase):
         self._is_starting = False
 
     def on_finished(self, succeded):
+        self._is_starting = False
         self._command_thread = None
         self._is_checked = False
         self._project_in_sync = None
