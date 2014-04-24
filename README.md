@@ -66,7 +66,7 @@ You can toggle real-time synchronization of your code changes on save with the *
 
 When you modify your code and save your changes, your running app will refresh automatically if the device is connected to your system. This operation replaces only the modified application files.
 
-1. Select **Tools** -> **Telerik AppBuilder** -> **LiveSync on Save**.<br/>A check box indicates that LiveSync is enabled.
+1. Select **Tools** -> **Telerik AppBuilder** -> **Enable LiveSync on Save**.<br/>A check mark indicates that LiveSync is enabled.
 1. On your connected devices or in the device simulator, run your app.
 1. Modify your code and save changes.
 
