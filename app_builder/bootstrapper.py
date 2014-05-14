@@ -13,10 +13,10 @@ def initialize(installed_appbuilder_cli_version):
 
 def _load_config():
     global _config
-    settings = sublime.load_settings("AppBuilder.sublime-settings")
+    settings = sublime.load_settings("telerik_appbuilder.sublime-settings")
     _config = {
         "osx_node_path": settings.get("node_osx_path") or "/usr/local/bin/node",
-        "osx_appbuilder_path": settings.get("osx_appbuilder_path") or "/usr/local/bin/appbuilder",
+        "osx_appbuilder_path": settings.get("appbuilder_osx_path") or "/usr/local/bin/appbuilder",
         "win_node_name": "node",
         "win_appbuilder_name": "appbuilder",
         "required_appbuilder_cli_version": "2.1.1"
