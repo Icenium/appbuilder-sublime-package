@@ -24,6 +24,7 @@ class CommandThread(threading.Thread):
         else:
             self.stdout = subprocess.PIPE
         self.kwargs = kwargs
+        self.proc = None
 
     def terminate(self):
         if self.proc != None:
