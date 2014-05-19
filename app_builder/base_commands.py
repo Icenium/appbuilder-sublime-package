@@ -6,6 +6,7 @@ import abc
 from .bootstrapper import has_compatible_working_appbuilder_cli
 from .command_executor import run_command
 from .notifier import log_info, log_error
+from .feature_usage_tracking import ensure_feature_usage_tracking_is_set
 
 class AppBuilderCommandBase(sublime_plugin.ApplicationCommand):
     __metaclass__ = abc.ABCMeta
@@ -72,6 +73,8 @@ class RegularAppBuilderCommand(AppBuilderCommandBase):
         return super(RegularAppBuilderCommand, self).is_enabled() and not self._is_running
 
     def run(self):
+        ensure_feature_usage_tracking_is_set()
+
         self._is_running = True
         self.on_started()
 
@@ -94,6 +97,8 @@ class ToggleAppBuilderCommand(AppBuilderCommandBase):
         self._command_thread = None
 
     def run(self):
+        ensure_feature_usage_tracking_is_set
+
         if self._is_starting or self._is_finishing:
             return
 

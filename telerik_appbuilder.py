@@ -35,8 +35,6 @@ def plugin_loaded():
         global installed_appbuilder_cli_version
         if succeeded:
             bootstrapper.initialize(installed_appbuilder_cli_version)
-            if bootstrapper.has_compatible_working_appbuilder_cli():
-                ensure_feature_usage_tracking_is_set()
         else:
             installed_appbuilder_cli_version = None
             log_fail("Cannot load the Telerik AppBuilder package because the Telerik AppBuilder command-line interface is not installed properly on your system.\n" +
