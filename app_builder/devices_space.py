@@ -10,7 +10,7 @@ def select_device(app_builder_command, on_device_selected):
     on_device_data_reveived = lambda device_data: add_device_if_not_empty(_parse_device_data(device_data))
     on_devices_data_finished = lambda succeeded: _show_devices_list_and_select_device(app_builder_command, devices, on_device_selected) if succeeded else on_device_selected(None)
 
-    run_command(["list-devices", "--json"], on_device_data_reveived, on_devices_data_finished, True, "Retrieving devices")
+    run_command(["device", "--json"], on_device_data_reveived, on_devices_data_finished, True, "Retrieving devices")
 
 def _parse_device_data(device_data):
     try:

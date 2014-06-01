@@ -25,4 +25,4 @@ class Project(object):
     def get_project_name(path):
         json_data = open(os.path.join(path, Project.PROJECT_FILE_NAME))
         project_data = json.load(json_data)
-        return project_data["name"]
+        return project_data["DisplayName"]
