@@ -12,7 +12,12 @@ _appbuilder_path = []
 def run_command(command, on_data=None, on_done=None, show_progress=True,
     in_progress_message="Loading", success_message="", failure_message = "",
     show_status=True, filter_empty_args=True, no_save=False, **kwargs):
-    command = _get_appbuilder_path() + command
+    appbuilder_path = _get_appbuilder_path()
+    if appbuilder_path == None:
+        on_done(False)
+        return None
+
+    command = appbuilder_path + command
 
     if filter_empty_args:
         command = [arg for arg in command if arg]
@@ -39,9 +44,13 @@ def _get_appbuilder_path():
             _appbuilder_path.append(_find_win_node_path())
             _appbuilder_path.append(_find_win_appbuilder_path())
         elif os.name == "posix":
-            _appbuilder_path.append(get_config("osx_node_path"))
-            _appbuilder_path.append(get_config("osx_appbuilder_path"))
-
+            osx_node_path = get_config("osx_node_path")
+            osx_appbuilder_path = get_config("osx_appbuilder_path")
+            if os.path.isfile(osx_node_path) and os.path.isfile(osx_appbuilder_path):
+                _appbuilder_path.append(osx_node_path)
+                _appbuilder_path.append(osx_appbuilder_path)
+            else:
+                return None
     return _appbuilder_path
 
 def _find_win_node_path():
