@@ -57,12 +57,6 @@ class RunInSimulatorCommand(RegularAppBuilderCommand):
     def command_name(self):
         return "Run in Simulator"
 
-    def is_enabled(self):
-        return super(RunInSimulatorCommand, self).is_enabled() and os.name == "nt"
-
-    def is_visible(self):
-        return os.name == "nt"
-
     def on_started(self):
         select_project(self, self.on_project_selected)
 
