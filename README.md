@@ -20,12 +20,10 @@ This package lets you run your hybrid mobile app on connected devices or in the 
 Installation
 ===
 
-Latest version: Telerik AppBuilder 2.1.1  
-Release date: 2014, May 12  
+Latest version: Telerik AppBuilder 2.2  
+Release date: 2014, June 5  
 
-> This is a maintenance release. For a complete list of the features available in Telerik AppBuilder 2.1.1, see <a href="http://docs.telerik.com/platform/appbuilder/release-notes/v2-1-1" target="_blank">Telerik AppBuilder 2.1.1 Release Notes</a>.
-
-> For a complete list of the features available in the last major release, Telerik AppBuilder 2.1, see <a href="http://docs.telerik.com/platform/appbuilder/release-notes/v2-1" target="_blank">Telerik AppBuilder 2.1 Release Notes</a>.
+> For a complete list of the features available in Telerik AppBuilder 2.2, see <a href="http://docs.telerik.com/platform/appbuilder/release-notes/v2-2" target="_blank">Telerik AppBuilder 2.2 Release Notes</a>.
 
 ### Software Requirements
 
@@ -86,8 +84,6 @@ You can synchronize all your changes to an app deployed on a connected device at
 
 <a name="simulator"></a>
 ### Run in the Device Simulator
-
-> In this version of the Telerik AppBuilder CLI, you cannot run your apps in the device simulator on OS X systems. The device simulator will become available for OS X in a future release of Telerik AppBuilder.
 
 You can build and deploy your app in the device simulator with the **Tools** -> **Telerik AppBuilder** -> **Run in Simulator** operation. 
 
