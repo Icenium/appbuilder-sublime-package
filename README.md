@@ -9,7 +9,7 @@ Telerik AppBuilder for Sublime Text
 
 This package lets you run your hybrid mobile app on connected devices or in the device simulator, and synchronize your code changes to the running app without redeploying it. The package requires that the Telerik AppBuilder Command-Line Interface is installed on your system.
 
-> The Telerik AppBuilder Command-Line Interface is delivered for Windows and OS X as an npm package. For more information click <a href="https://www.npmjs.org/package/appbuilder" target="_blank">here</a>.
+> The Telerik AppBuilder Command-Line Interface is delivered for Windows, OS X, and Linux as an npm package. For more information click <a href="https://www.npmjs.org/package/appbuilder" target="_blank">here</a>.
 
 * [Installation](#installation "How to install the Telerik AppBuilder package for Sublime Text")
 * [Usage](#usage "How to build, deploy, and sync your apps from Sublime Text")
@@ -20,14 +20,14 @@ This package lets you run your hybrid mobile app on connected devices or in the 
 Installation
 ===
 
-Latest version: Telerik AppBuilder 2.3.1  
-Release date: 2014, July 17 
+Latest version: Telerik AppBuilder 2.4  
+Release date: 2014, July 29 
 
-> AppBuilder 2.3.1 is a maintenance release. For a complete list of the features available in Telerik AppBuilder 2.3, see <a href="http://docs.telerik.com/platform/appbuilder/release-notes/v2-3" target="_blank">Telerik AppBuilder 2.3 Release Notes</a>.
+> For a complete list of the features available in Telerik AppBuilder 2.4, see <a href="http://docs.telerik.com/platform/appbuilder/release-notes/v2-4" target="_blank">Telerik AppBuilder 2.4 Release Notes</a>.
 
 ### Software Requirements
 
-* Windows or OS X Mavericks
+* Windows, OS X Mavericks, or Linux
 * Sublime Text 2 or Sublime Text 3
 * Package Control for your version of Sublime Text
 * Telerik AppBuilder Command-Line Interface
@@ -36,6 +36,31 @@ Release date: 2014, July 17
 ### Install the Package
 
 Install this package with <a href="http://wbond.net/sublime_packages/package_control" target="_blank">Package Control</a>.
+
+If you are running the **AppBuilder Package for Sublime Text on Linux**, perform the following additional steps.
+
+1. In the terminal, run the following command.
+
+	```bash
+	$ which node
+	```
+1. In the terminal, run the following command.
+
+    ```bash
+    $ which appbuilder
+    ```
+1. In the main menu bar of Sublime Text, select **Preferences** -> **Browse Packages**.
+1. Locate and open the **Telerik AppBuilder** folder.
+1. Open `telerik_appbuilder.sublime-settings` and replate the declared path values.
+
+	```
+	{
+		"node_osx_path": "The path retrieved in Step 1"
+		"appbuilder_osx_path": "The path retrieved in Step 2"
+	}
+	```
+1. Save changes.
+1. Restart Sublime Text.
 
 [Back to Top][1]
 
@@ -52,6 +77,8 @@ After you install this package, you can access the available build and sync comm
 ### Run on Device
 
 You can build and deploy your app on one device at a time with the **Tools** -> **Telerik AppBuilder** -> **Build and Deploy** operation.
+
+> In this version of the AppBuilder package for Sublime Text for Linux, you cannot build and deploy your app via cable connection on iOS devices.
 
 1. Connect your devices.
 1. Select **Tools** -> **Telerik AppBuilder** -> **Build and Deploy**.<br/>If you have connected multiple devices, Sublime Text will display a drop-down list of the connected devices with their unique identifiers and mobile platform.
@@ -76,6 +103,8 @@ The app refreshes automatically.
 
 You can synchronize all your changes to an app deployed on a connected device at once with the **Tools** -> **Telerik AppBuilder** -> **LiveSync Application** operation. This operation replaces all application files at once.
 
+> In this version of the AppBuilder package for Sublime Text for Linux, you cannot LiveSync your app via cable connection on iOS devices.
+
 1. Verify that you have connected your device and you have deployed the app.
 1. Run your app.
 1. Modify your code and save changes.
@@ -87,6 +116,8 @@ You can synchronize all your changes to an app deployed on a connected device at
 ### Run in the Device Simulator
 
 You can build and deploy your app in the device simulator with the **Tools** -> **Telerik AppBuilder** -> **Run in Simulator** operation. 
+
+> In this version of the AppBuilder package for Sublime Text for Linux, you cannot run your app in the device simulator.
 
 * Select **Tools** -> **Telerik AppBuilder** -> **Run in Simulator**.
 
