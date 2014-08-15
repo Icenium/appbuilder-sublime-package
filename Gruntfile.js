@@ -15,16 +15,17 @@ module.exports = function(grunt) {
                 files: [
                     { src: ["**/*.{py,pyd,so}", "*.{sublime-keymap,sublime-menu,sublime-settings}", "LICENSE"] }
                 ]
+            },
+			second: {
+                options: {
+                    archive: "<%= copyPackageTo %>\\<%= jobName %>\\Telerik AppBuilder.zip"
+                },
+                files: [
+                    { src: ["**/*.{py,pyd,so}", "*.{sublime-keymap,sublime-menu,sublime-settings}", "LICENSE"] }
+                ]
             }
         },
 		
-		copy: {
-			package_to_qa_drop_folder: {
-				src: "<%= destinationFolder %>\\Telerik AppBuilder.zip",
-				dest: "<%= copyPackageTo %>\\<%= jobName %>\\Telerik AppBuilder.zip"
-			}
-		},
-
         clean: {
             src: ["**/*.pyc"]
         }
@@ -32,6 +33,5 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks("grunt-contrib-compress");
     grunt.loadNpmTasks("grunt-contrib-clean");
-	grunt.loadNpmTasks("grunt-contrib-copy");
-	grunt.registerTask("default", ["compress:main", "copy:package_to_qa_drop_folder" ]);
+	grunt.registerTask("default", ["compress:main","compress:second"]);
 }
