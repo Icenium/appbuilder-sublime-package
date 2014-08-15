@@ -20,7 +20,7 @@ module.exports = function(grunt) {
 		
 		copy: {
 			package_to_qa_drop_folder: {
-				src: "*<%= destinationFolder %>\\Telerik AppBuilder.zip",
+				src: "<%= destinationFolder %>\\Telerik AppBuilder.zip",
 				dest: "<%= copyPackageTo %>\\<%= jobName %>\\Telerik AppBuilder.zip"
 			}
 		},
@@ -33,4 +33,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-compress");
     grunt.loadNpmTasks("grunt-contrib-clean");
     grunt.registerTask("default", "compress:main");
+	grunt.registerTask("default", ["compress:main", "copy:package_to_qa_drop_folder" ]);
 }
