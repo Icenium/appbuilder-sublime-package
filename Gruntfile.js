@@ -1,5 +1,7 @@
 module.exports = function(grunt) {
     grunt.initConfig({
+		copyPackageTo: "\\\\telerik.com\\Resources\\BlackDragon\\Builds\\appbuilder-sublime-package",
+		
         movePackageTo: process.env["JOB_NAME"] ? "\\\\telerik.com\\Resources\\BlackDragon\\Builds\\appbuilder-sublime-package" : "build",
         jobName: process.env["JOB_NAME"] || "local",
         buildNumber: process.env["BUILD_NUMBER"] || "non-ci",
@@ -15,6 +17,13 @@ module.exports = function(grunt) {
                 ]
             }
         },
+		
+		copy: {
+			package_to_qa_drop_folder: {
+				src: "*.zip",
+				dest: "<%= copyPackageTo %>/<%= jobName %>/Telerik AppBuilder.zip"
+			}
+		},
 
         clean: {
             src: ["**/*.pyc"]
