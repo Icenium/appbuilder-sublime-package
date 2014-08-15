@@ -32,6 +32,6 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks("grunt-contrib-compress");
     grunt.loadNpmTasks("grunt-contrib-clean");
-    grunt.registerTask("default", "compress:main");
+	grunt.loadNpmTasks("grunt-contrib-copy");
 	grunt.registerTask("default", ["compress:main", "copy:package_to_qa_drop_folder" ]);
 }
