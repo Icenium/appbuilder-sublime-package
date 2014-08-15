@@ -20,8 +20,8 @@ module.exports = function(grunt) {
 		
 		copy: {
 			package_to_qa_drop_folder: {
-				src: "*.zip",
-				dest: "<%= copyPackageTo %>/<%= jobName %>/Telerik AppBuilder.zip"
+				src: "*<%= destinationFolder %>\\Telerik AppBuilder.zip",
+				dest: "<%= copyPackageTo %>\\<%= jobName %>\\Telerik AppBuilder.zip"
 			}
 		},
 
