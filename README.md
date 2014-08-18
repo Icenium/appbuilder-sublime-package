@@ -20,10 +20,10 @@ This package lets you run your hybrid mobile app on connected devices or in the 
 Installation
 ===
 
-Latest version: Telerik AppBuilder 2.4  
-Release date: 2014, July 31 
+Latest version: Telerik AppBuilder 2.4.1  
+Release date: 2014, August 18 
 
-> For a complete list of the features available in Telerik AppBuilder 2.4, see <a href="http://docs.telerik.com/platform/appbuilder/release-notes/v2-4" target="_blank">Telerik AppBuilder 2.4 Release Notes</a>.
+> This is maintenance release. For a complete list of the features available in Telerik AppBuilder 2.4.1, see <a href="http://docs.telerik.com/platform/appbuilder/release-notes/v2-4-1" target="_blank">Telerik AppBuilder 2.4.1 Release Notes</a>.<br/>For a complete list of the features available in Telerik AppBuilder 2.4, see <a href="http://docs.telerik.com/platform/appbuilder/release-notes/v2-4" target="_blank">Telerik AppBuilder 2.4 Release Notes</a>.
 
 ### Software Requirements
 
