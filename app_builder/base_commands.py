@@ -72,11 +72,12 @@ class RegularAppBuilderCommand(AppBuilderCommandBase):
     def is_enabled(self):
         return super(RegularAppBuilderCommand, self).is_enabled() and not self._is_running
 
-    def run(self):
-        ensure_feature_usage_tracking_is_set()
-
+    def callback(self):
         self._is_running = True
         self.on_started()
+
+    def run(self):
+        ensure_feature_usage_tracking_is_set(self.callback)
 
     @abc.abstractmethod
     def on_started(self):

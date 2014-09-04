@@ -6,7 +6,7 @@ from .notifier import log_info
 
 _track_feature_usage_enabled = None
 
-def ensure_feature_usage_tracking_is_set():
+def ensure_feature_usage_tracking_is_set(callback=None):
     if _track_feature_usage_enabled != None:
         return
 
@@ -22,23 +22,28 @@ def ensure_feature_usage_tracking_is_set():
     def on_done(succeeded):
         global _track_feature_usage_enabled
         if succeeded and _track_feature_usage_enabled == None:
-            _prompt_to_set_feature_usage_tracking()
+            _prompt_to_set_feature_usage_tracking(callback)
+        else:
+            executeCallback(callback)
 
     run_command(["feature-usage-tracking", "status", "--json"], on_data, on_done, True, "Checking AppBuilder CLI feature usage tracking")
 
-def _prompt_to_set_feature_usage_tracking():
+def _prompt_to_set_feature_usage_tracking(callback=None):
     sublime.active_window().show_input_panel("Send anonymous usage statistics to help improve your Telerik AppBuilder experience? (yes, no)", "Yes",
-        _set_feature_usage_tracking, None, _set_feature_usage_tracking)
+        lambda response: _set_feature_usage_tracking(response, callback), None, lambda response: _set_feature_usage_tracking(response, callback))
 
-def _set_feature_usage_tracking(response = None):
+def _set_feature_usage_tracking(response = None, callback = None):
     if response:
         response = response.lower()
         if response == "yes":
-            run_command(["feature-usage-tracking", "enable"], lambda data: log_info(data), None, True, "Turning on feature usage tracking",
+            run_command(["feature-usage-tracking", "enable"], lambda data: log_info(data), lambda succeeded: executeCallback(callback), True, "Turning on feature usage tracking",
                 "Feature usage tracking is now turned on", "Feature usage tracking could not turn on")
-            return
         elif response == "no":
-            run_command(["feature-usage-tracking", "disable"], lambda data: log_info(data), None, True, "Turning off feature usage tracking",
+            run_command(["feature-usage-tracking", "disable"], lambda data: log_info(data), lambda succeeded: executeCallback(callback), True, "Turning off feature usage tracking",
                 "Feature usage tracking is now turned off", "Feature usage tracking could not turn off")
-            return
+        return
     _prompt_to_set_feature_usage_tracking()
+
+def executeCallback(callback=None):
+    if callback != None:
+        callback()
