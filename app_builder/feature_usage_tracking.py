@@ -30,7 +30,7 @@ def ensure_feature_usage_tracking_is_set(callback=None):
 
 def _prompt_to_set_feature_usage_tracking(callback=None):
     sublime.active_window().show_input_panel("Send anonymous usage statistics to help improve your Telerik AppBuilder experience? (yes, no)", "Yes",
-        lambda response: _set_feature_usage_tracking(response, callback), None, lambda response: _set_feature_usage_tracking(response, callback))
+        lambda response=None: _set_feature_usage_tracking(response, callback), None, lambda response=None: _set_feature_usage_tracking(response, callback))
 
 def _set_feature_usage_tracking(response = None, callback = None):
     if response:
