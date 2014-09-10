@@ -97,9 +97,7 @@ class ToggleAppBuilderCommand(AppBuilderCommandBase):
         self._is_checked = False
         self._command_thread = None
 
-    def run(self):
-        ensure_feature_usage_tracking_is_set()
-
+    def callback(self):
         if self._is_starting or self._is_finishing:
             return
 
@@ -117,6 +115,9 @@ class ToggleAppBuilderCommand(AppBuilderCommandBase):
                 self._is_finishing = False
             finally:
                 self._is_starting = False
+
+    def run(self):
+        ensure_feature_usage_tracking_is_set(self.callback)
 
     def run_command(self, command):
         self._command_thread = self.get_command_thread(command)

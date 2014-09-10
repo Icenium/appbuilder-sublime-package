@@ -8,6 +8,7 @@ _track_feature_usage_enabled = None
 
 def ensure_feature_usage_tracking_is_set(callback=None):
     if _track_feature_usage_enabled != None:
+        executeCallback(callback)
         return
 
     def on_data(data):
