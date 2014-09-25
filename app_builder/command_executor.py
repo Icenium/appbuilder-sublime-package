@@ -1,6 +1,7 @@
 import sublime
 import os
 import subprocess
+import platform
 
 from .bootstrapper import get_config
 from .notifier import log_info, log_error, log_fail
@@ -53,11 +54,16 @@ def _get_appbuilder_path():
             else:
                 return None
         elif platform.system() == "Linux":
-            linux_node_path_raw = subprocess.check_output(['/bin/bash', '-i', '-c', "which node"]) # returns byte string
-            linux_node_path = str(linux_node_path_raw.decode("utf-8")).strip()
+            linux_node_path = get_config("linux_node_path")
+            linux_appbuilder_path = get_config("linux_appbuilder_path")
 
-            linux_appbuilder_path_raw = subprocess.check_output(['/bin/bash', '-i', '-c', "which appbuilder"]) # returns byte string
-            linux_appbuilder_path = str(linux_appbuilder_path_raw.decode("utf-8")).strip()
+            if linux_node_path == "":
+                linux_node_path_raw = subprocess.check_output(['/bin/bash', '-i', '-c', "which node"]) # returns byte string
+                linux_node_path = str(linux_node_path_raw.decode("utf-8")).strip()
+
+            if linux_appbuilder_path == "":
+                linux_appbuilder_path_raw = subprocess.check_output(['/bin/bash', '-i', '-c', "which appbuilder"]) # returns byte string
+                linux_appbuilder_path = str(linux_appbuilder_path_raw.decode("utf-8")).strip()
 
             if os.path.isfile(linux_node_path) and os.path.isfile(linux_appbuilder_path):
                 _appbuilder_path.append(linux_node_path)

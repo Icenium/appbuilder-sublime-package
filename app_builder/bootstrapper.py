@@ -17,6 +17,8 @@ def _load_config():
     _config = {
         "osx_node_path": settings.get("node_osx_path") or "/usr/local/bin/node",
         "osx_appbuilder_path": settings.get("appbuilder_osx_path") or "/usr/local/bin/appbuilder",
+        "linux_node_path": settings.get("linux_node_path") or "",
+        "linux_appbuilder_path": settings.get("linux_appbuilder_path") or "",
         "win_node_name": "node",
         "win_appbuilder_name": "appbuilder",
         "required_appbuilder_cli_version": "2.5.1"
