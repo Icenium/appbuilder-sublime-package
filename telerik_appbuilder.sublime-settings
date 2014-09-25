@@ -1,4 +1,6 @@
 {
     "node_osx_path": "/usr/local/bin/node",
-    "appbuilder_osx_path": "/usr/local/bin/appbuilder"
+    "appbuilder_osx_path": "/usr/local/bin/appbuilder",
+	"linux_node_path": "",
+	"linux_appbuilder_path": ""
 }
