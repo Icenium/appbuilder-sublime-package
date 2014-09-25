@@ -56,8 +56,8 @@ def _get_appbuilder_path():
             linux_node_path_raw = subprocess.check_output(['/bin/bash', '-i', '-c', "which node"]) # returns byte string
             linux_node_path = str(linux_node_path_raw.decode("utf-8")).strip()
 
-            linux_appbuilder_path_raw = subprocess.check_output(['/bin/bash', '-i', '-c', "which appbuilder"])
-            linux_appbuilder_path = str(linux_appbuilder_path_raw.decode("utf-8")).strip() # returns byte string
+            linux_appbuilder_path_raw = subprocess.check_output(['/bin/bash', '-i', '-c', "which appbuilder"]) # returns byte string
+            linux_appbuilder_path = str(linux_appbuilder_path_raw.decode("utf-8")).strip()
 
             if os.path.isfile(linux_node_path) and os.path.isfile(linux_appbuilder_path):
                 _appbuilder_path.append(linux_node_path)
