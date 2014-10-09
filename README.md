@@ -8,7 +8,7 @@ Telerik AppBuilder for Sublime Text
 **Leverage the build and test capabilities of Telerik AppBuilder from Sublime Text 2 or Sublime Text 3**
 
 This package lets you run your hybrid mobile app on connected devices or in the device simulator, and synchronize your code changes to the running app without redeploying it. The package requires that the Telerik AppBuilder Command-Line Interface is installed on your system.
-http://admin.telerik.com/?Context=Support&Control=~/UserControls/Support/ThreadReply.ascx&ST=867414&SM=0
+
 > The Telerik AppBuilder Command-Line Interface is delivered for Windows, OS X, and Linux as an npm package. For more information click <a href="https://www.npmjs.org/package/appbuilder" target="_blank">here</a>.
 
 * [Installation](#installation "How to install the Telerik AppBuilder package for Sublime Text")
