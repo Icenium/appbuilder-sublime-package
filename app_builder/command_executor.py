@@ -39,6 +39,26 @@ def run_command(command, on_data=None, on_done=None, show_progress=True,
 def show_quick_panel(window, items, on_done):
     window.show_quick_panel(items, on_done)
 
+def check_output(*popenargs, **kwargs):
+    r"""Run command with arguments and return its output as a byte string.
+ 
+    Backported from Python 2.7 as it's implemented as pure python on stdlib.
+ 
+    >>> check_output(['/usr/bin/python', '--version'])
+    Python 2.6.2
+    """
+    process = subprocess.Popen(stdout=subprocess.PIPE, *popenargs, **kwargs)
+    output, unused_err = process.communicate()
+    retcode = process.poll()
+    if retcode:
+        cmd = kwargs.get("args")
+        if cmd is None:
+            cmd = popenargs[0]
+            error = subprocess.CalledProcessError(retcode, cmd)
+            error.output = output
+            raise error
+    return output
+
 def _get_appbuilder_path():
     global _appbuilder_path
     if not _appbuilder_path:
@@ -58,11 +78,11 @@ def _get_appbuilder_path():
             linux_appbuilder_path = get_config("linux_appbuilder_path")
 
             if linux_node_path == "":
-                linux_node_path_raw = subprocess.check_output(['/bin/bash', '-i', '-c', "which node"]) # returns byte string
+                linux_node_path_raw = check_output(['/bin/bash', '-i', '-c', "which node"]) # returns byte string
                 linux_node_path = str(linux_node_path_raw.decode("utf-8")).strip()
 
             if linux_appbuilder_path == "":
-                linux_appbuilder_path_raw = subprocess.check_output(['/bin/bash', '-i', '-c', "which appbuilder"]) # returns byte string
+                linux_appbuilder_path_raw = check_output(['/bin/bash', '-i', '-c', "which appbuilder"]) # returns byte string
                 linux_appbuilder_path = str(linux_appbuilder_path_raw.decode("utf-8")).strip()
 
             if os.path.isfile(linux_node_path) and os.path.isfile(linux_appbuilder_path):
