@@ -1,5 +1,6 @@
 [  
 	{ "keys": ["ctrl+alt+d"], "command": "deploy" },
 	{ "keys": ["ctrl+alt+u"], "command": "sync" },
-	{ "keys": ["ctrl+alt+l"], "command": "toggle_live_sync" }
+	{ "keys": ["ctrl+alt+l"], "command": "toggle_live_sync" },
+	{ "keys": ["ctrl+alt+s"], "command": "run_in_simulator" }
 ]
