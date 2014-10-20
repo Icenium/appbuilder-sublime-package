@@ -20,8 +20,8 @@ This package lets you run your hybrid mobile app on connected devices or in the 
 Installation
 ===
 
-Latest version: Telerik AppBuilder 2.5.1 
-Release date: 2014, September 18
+Latest version: Telerik AppBuilder 2.6 
+Release date: 2014, October ??
 
 > Telerik AppBuilder 2.5.1 is a maintenance release. For a complete list of the bug fixes available in Telerik AppBuilder 2.5.1, see <a href="http://docs.telerik.com/platform/appbuilder/release-notes/v2-5-1" target="_blank">Telerik AppBuilder 2.5.1 Release Notes</a>.<br/>For a complete list of the features available in the earlier major release Telerik AppBuilder 2.5, see <a href="http://docs.telerik.com/platform/appbuilder/release-notes/v2-5" target="_blank">Telerik AppBuilder 2.5 Release Notes</a>.
 
@@ -37,30 +37,91 @@ Release date: 2014, September 18
 
 Install this package with <a href="http://wbond.net/sublime_packages/package_control" target="_blank">Package Control</a>.
 
-If you are running the **AppBuilder Package for Sublime Text on Linux**, perform the following additional steps.
+* [Install the AppBuilder Package for Sublime Text on Windows](#install-the-appbuilder-package-for-sublime-text-on-windows "Install the AppBuilder package for Sublime Text on Windows")
+* [Install the AppBuilder Package for Sublime Text on OS X](#install-the-appbuilder-package-for-sublime-text-on-os-x "Install the AppBuilder package for Sublime Text on OS X")
+* [Install the AppBuilder Package for Sublime Text on Linux](#install-the-appbuilder-package-for-sublime-text-on-linux "Install the AppBuilder package for Sublime Text on Linux")
+
+#### Install the AppBuilder package for Sublime Text on Windows 
+
+> **IMPORTANT:** Verify that you have installed the 32-bit Node.js. If you have installed the 64-bit Node.js, you will not be able to install and run the Telerik AppBuilder command-line interface properly.
+
+1. Run Sublime Text.
+1. Select **Preferences** &#8594; **Package Control**.
+1. Select **Install Package**.
+1. Start typing *Telerik AppBuilder* and select the package from the list.
+1. Wait for the installation to complete.
+
+#### Install the AppBuilder package for Sublime Text on OS X
+
+> **IMPORTANT:** Verify that you have installed Node.js via Node Version Manager or Homebrew. For more information about Node Version Manager, see <a href="https://github.com/creationix/nvm" target="_blank">Node Version Manager in GitHub</a>.<br/>For more information about Homebrew, see <a href="http://brew.sh/" target="_blank">the Homebrew web page</a>.
+
+1. Run Sublime Text.
+1. Select **Sublime Text** &#8594; **Preferences** &#8594; **Package Control**.
+1. Select **Install Package**.
+1. Start typing *Telerik AppBuilder* and select the package from the list.
+1. Wait for the installation to complete.
+
+If Sublime Text cannot load the package properly, verify that the path variables for Node.js and AppBuilder are populated properly in `telerik_appbuilder.sublime-settings`.
 
 1. In the terminal, run the following command.
-
-	```bash
-	$ which node
-	```
-1. In the terminal, run the following command.
-
-    ```bash
-    $ which appbuilder
+ 
+    ```Shell
+    which node
     ```
-1. In the main menu bar of Sublime Text, select **Preferences** -> **Browse Packages**.
-1. Locate and open the **Telerik AppBuilder** folder.
-1. Open `telerik_appbuilder.sublime-settings` and replate the declared path values.
+1. In the terminal, run the following command.
 
-	```
-	{
-		"node_osx_path": "The path retrieved in Step 1"
-		"appbuilder_osx_path": "The path retrieved in Step 2"
-	}
-	```
+    ```Shell
+    which appbuilder
+    ```
+1. Select **Sublime Text** &#8594; **Preferences** &#8594; **Package Control**.
+1. Locate and open the **Telerik AppBuilder** folder.
+1. Open `telerik_appbuilder.sublime-settings` and replace the declared path values.
+
+    ```
+    {
+        "node_osx_path": "The path retrieved in Step 1"
+        "appbuilder_osx_path": "The path retrieved in Step 2"
+    }
+    ```
 1. Save changes.
 1. Restart Sublime Text.
+
+#### Install the AppBuilder package for Sublime Text on Linux
+
+> **IMPORTANT:** Verify that you have installed Node.js via Node Version Manager. For more information about Node Version Manager, see <a href="https://github.com/creationix/nvm" target="_blank">Node Version Manager in GitHub</a>.
+
+1. Run Sublime Text.
+1. Select **Sublime Text** &#8594; **Preferences** &#8594; **Package Control**.
+1. Select **Install Package**.
+1. Start typing *Telerik AppBuilder* and select the package from the list.
+1. Wait for the installation to complete.
+
+If Sublime Text cannot load the package properly, verify that the path variables for Node.js and AppBuilder are populated properly in `telerik_appbuilder.sublime-settings`.
+
+1. In the terminal, run the following command.
+
+    ```Shell
+    which node
+    ```
+1. In the terminal, run the following command.
+
+    ```Shell
+    which appbuilder
+    ```
+1. Select **Sublime Text** &#8594; **Preferences** &#8594; **Package Control**.
+1. Locate and open the **Telerik AppBuilder** folder.
+1. Open `telerik_appbuilder.sublime-settings` and replace the declared path values.
+
+    ```
+    {
+        "linux_node_path": "The path retrieved in Step 1"
+        "linux_appbuilder_path": "The path retrieved in Step 2"
+    }
+    ```
+1. Save changes.
+1. Restart Sublime Text.
+
+The Telerik AppBuilder menu becomes available under the **Tools** menu.
 
 [Back to Top][1]
 
