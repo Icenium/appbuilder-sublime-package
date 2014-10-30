@@ -23,6 +23,8 @@ Installation
 Latest version: Telerik AppBuilder 2.6 
 Release date: 2014, October 30
 
+> For a complete list of the features available in Telerik AppBuilder 2.6, see <a href="http://docs.telerik.com/platform/appbuilder/release-notes/v2-6" target="_blank">Telerik AppBuilder 2.6 Release Notes</a>.
+
 ### Software Requirements
 
 * Windows, OS X Mavericks, or Linux
