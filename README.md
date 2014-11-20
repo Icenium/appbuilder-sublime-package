@@ -1,7 +1,7 @@
 Telerik AppBuilder for Sublime Text
 ==========================
 
-*Build and test iOS and Android hybrid apps using a single pure HTML5, CSS, and JavaScript code base*
+*Build and test iOS, Android and Windows Phone 8 hybrid apps using a single pure HTML5, CSS, and JavaScript code base*
 
 [![Telerik AppBuilder](https://raw.githubusercontent.com/Icenium/appbuilder-sublime-package/master/ab-logo.png "Telerik AppBuilder")](http://www.telerik.com/appbuilder "The Telerik AppBuilder web site")
 
@@ -204,7 +204,7 @@ To learn how to contribute to the code base, click [here](CONTRIBUTING.md#contri
 * [Telerik AppBuilder in-browser client](http://www.telerik.com/appbuilder/in-browser-client "The AppBuilder In-Browser Client"): Browser-based IDE that is compatible with most modern web and mobile browsers.
 * [Telerik AppBuilder extension for Visual Studio](http://www.telerik.com/appbuilder/visual-studio-extension "The AppBuilder Extension for Visual Studio"): Extension for the popular Microsoft IDE.
 * [Telerik AppBuilder command-line interface](http://www.telerik.com/appbuilder/command-line-interface "The AppBuilder command-line interface"): A command-line interface that lets you leverage the cloud capabilities of Telerik AppBuilder from the command line.
-* [Telerik AppBuilder companion app](http://www.telerik.com/appbuilder/companion-app "The AppBuilder Companion App"): iOS testing utility <a href="https://itunes.apple.com/bg/app/icenium-ion/id527547398" target="_blank">available for free on the App Store</a>.
+* [Telerik AppBuilder companion app](http://www.telerik.com/appbuilder/companion-app "The AppBuilder Companion App"): iOS, Android and Windows Phone testing utility <a href="https://itunes.apple.com/bg/app/icenium-ion/id527547398" target="_blank">available for free on the App Store</a>.
 * [Telerik AppBuilder documentation](http://docs.telerik.com/platform/appbuilder "The documentation resources for Telerik AppBuilder"): Learn more about what you can do with Telerik AppBuilder.
 * [Telerik AppBuilder web page](http://www.telerik.com/appbuilder "The Telerik AppBuilder web page"): Visit the Telerik AppBuilder web site.
 
