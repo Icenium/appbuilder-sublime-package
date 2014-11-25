@@ -1,5 +1,6 @@
 import os
 import json
+import codecs
 
 class Project(object):
     PROJECT_FILE_NAME = ".abproject"
@@ -23,6 +24,11 @@ class Project(object):
 
     @staticmethod
     def get_project_name(path):
-        json_data = open(os.path.join(path, Project.PROJECT_FILE_NAME))
-        project_data = json.load(json_data)
-        return project_data["DisplayName"]
+        try:
+            json_data = codecs.open(os.path.join(path, Project.PROJECT_FILE_NAME), "r", "utf-8")
+            project_data = json.load(json_data)
+            return project_data["DisplayName"]
+        except UnicodeError as e:
+            print("Unable to parse project file: " + Project.PROJECT_FILE_NAME)
+            # Do not raise error here, just return empty string. The calling method will start the first project in the dir, so getting DisplayName is optional
+            return ""
