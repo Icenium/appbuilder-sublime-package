@@ -61,6 +61,9 @@ class CommandThread(threading.Thread):
                 self._on_finished(False)
             else:
                 raise e
+        except UnicodeError as e:
+            main_thread(log_error, "Unable to execute command, check for non-ascii symbols in the path to your project.")
+            self._on_finished(False)
 
     def success(self):
         if self.is_alive():
