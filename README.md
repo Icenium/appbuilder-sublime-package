@@ -20,10 +20,10 @@ This package lets you run your hybrid mobile app on connected devices or in the 
 Installation
 ===
 
-Latest version: Telerik AppBuilder 2.6.3  
-Release date: 2014, December 2
+Latest version: Telerik AppBuilder 2.7  
+Release date: 2014, December 19
 
-> Telerik AppBuilder 2.6.3 is a maintenance release. For a complete list of the updates available in Telerik AppBuilder 2.6.3, see <a href="http://docs.telerik.com/platform/appbuilder/release-notes/v2-6-3" target="_blank">Telerik AppBuilder 2.6.3 Release Notes</a>.<br/>For a complete list of the features available in the earlier major release Telerik AppBuilder 2.6, see <a href="http://docs.telerik.com/platform/appbuilder/release-notes/v2-6" target="_blank">Telerik AppBuilder 2.6 Release Notes</a>.
+> For a complete list of the features and updates available in Telerik AppBuilder 2.7, see <a href="http://docs.telerik.com/platform/appbuilder/release-notes/v2-7" target="_blank">Telerik AppBuilder 2.7 Release Notes</a>.
 
 ### Software Requirements
 
@@ -52,8 +52,6 @@ Install this package with <a href="http://wbond.net/sublime_packages/package_con
 1. Wait for the installation to complete.
 
 #### Install the AppBuilder package for Sublime Text on OS X
-
-> **IMPORTANT:** Verify that you have installed Node.js via Node Version Manager or Homebrew. For more information about Node Version Manager, see <a href="https://github.com/creationix/nvm" target="_blank">Node Version Manager in GitHub</a>.<br/>For more information about Homebrew, see <a href="http://brew.sh/" target="_blank">the Homebrew web page</a>.
 
 1. Run Sublime Text.
 1. Select **Sublime Text** &#8594; **Preferences** &#8594; **Package Control**.
@@ -88,7 +86,7 @@ If Sublime Text cannot load the package properly, verify that the path variables
 
 #### Install the AppBuilder package for Sublime Text on Linux
 
-> **IMPORTANT:** Verify that you have installed Node.js via Node Version Manager. For more information about Node Version Manager, see <a href="https://github.com/creationix/nvm" target="_blank">Node Version Manager in GitHub</a>.
+> **IMPORTANT:** If you used `sudo apt-get install` to install Node.js, make sure that you have installed the `nodejs-legacy` package instead of `node`.
 
 1. Run Sublime Text.
 1. Select **Sublime Text** &#8594; **Preferences** &#8594; **Package Control**.
