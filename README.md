@@ -43,8 +43,6 @@ Install this package with <a href="http://wbond.net/sublime_packages/package_con
 
 #### Install the AppBuilder package for Sublime Text on Windows 
 
-> **IMPORTANT:** Verify that you have installed the 32-bit Node.js. If you have installed the 64-bit Node.js, you will not be able to install and run the Telerik AppBuilder command-line interface properly.
-
 1. Run Sublime Text.
 1. Select **Preferences** &#8594; **Package Control**.
 1. Select **Install Package**.
@@ -139,6 +137,8 @@ You can build and deploy your app on one device at a time with the **Tools** -> 
 
 > In this version of the AppBuilder package for Sublime Text for Linux, you cannot build and deploy your app via cable connection on iOS devices.
 
+> To be able to work with connected iOS devices on Windows systems, verify that you have downloaded and installed the 32-bit Node.js.
+
 1. Connect your devices.
 1. Select **Tools** -> **Telerik AppBuilder** -> **Build and Deploy**.<br/>If you have connected multiple devices, Sublime Text will display a drop-down list of the connected devices with their unique identifiers and mobile platform.
 1. If prompted, select the device on which you want to deploy.
@@ -163,6 +163,8 @@ The app refreshes automatically.
 You can synchronize all your changes to an app deployed on a connected device at once with the **Tools** -> **Telerik AppBuilder** -> **LiveSync Application** operation. This operation replaces all application files at once.
 
 > In this version of the AppBuilder package for Sublime Text for Linux, you cannot LiveSync your app via cable connection on iOS devices.
+
+> To be able to work with connected iOS devices on Windows systems, verify that you have downloaded and installed the 32-bit Node.js.
 
 1. Verify that you have connected your device and you have deployed the app.
 1. Run your app.
