@@ -20,10 +20,10 @@ This package lets you run your hybrid mobile app on connected devices or in the 
 Installation
 ===
 
-Latest version: Telerik AppBuilder 2.6.3  
-Release date: 2014, December 2
+Latest version: Telerik AppBuilder 2.7  
+Release date: 2014, December 17
 
-> Telerik AppBuilder 2.6.3 is a maintenance release. For a complete list of the updates available in Telerik AppBuilder 2.6.3, see <a href="http://docs.telerik.com/platform/appbuilder/release-notes/v2-6-3" target="_blank">Telerik AppBuilder 2.6.3 Release Notes</a>.<br/>For a complete list of the features available in the earlier major release Telerik AppBuilder 2.6, see <a href="http://docs.telerik.com/platform/appbuilder/release-notes/v2-6" target="_blank">Telerik AppBuilder 2.6 Release Notes</a>.
+> For a complete list of the features and updates available in Telerik AppBuilder 2.7, see <a href="http://docs.telerik.com/platform/appbuilder/release-notes/v2-7" target="_blank">Telerik AppBuilder 2.7 Release Notes</a>.
 
 ### Software Requirements
 
@@ -43,8 +43,6 @@ Install this package with <a href="http://wbond.net/sublime_packages/package_con
 
 #### Install the AppBuilder package for Sublime Text on Windows 
 
-> **IMPORTANT:** Verify that you have installed the 32-bit Node.js. If you have installed the 64-bit Node.js, you will not be able to install and run the Telerik AppBuilder command-line interface properly.
-
 1. Run Sublime Text.
 1. Select **Preferences** &#8594; **Package Control**.
 1. Select **Install Package**.
@@ -52,8 +50,6 @@ Install this package with <a href="http://wbond.net/sublime_packages/package_con
 1. Wait for the installation to complete.
 
 #### Install the AppBuilder package for Sublime Text on OS X
-
-> **IMPORTANT:** Verify that you have installed Node.js via Node Version Manager or Homebrew. For more information about Node Version Manager, see <a href="https://github.com/creationix/nvm" target="_blank">Node Version Manager in GitHub</a>.<br/>For more information about Homebrew, see <a href="http://brew.sh/" target="_blank">the Homebrew web page</a>.
 
 1. Run Sublime Text.
 1. Select **Sublime Text** &#8594; **Preferences** &#8594; **Package Control**.
@@ -88,7 +84,7 @@ If Sublime Text cannot load the package properly, verify that the path variables
 
 #### Install the AppBuilder package for Sublime Text on Linux
 
-> **IMPORTANT:** Verify that you have installed Node.js via Node Version Manager. For more information about Node Version Manager, see <a href="https://github.com/creationix/nvm" target="_blank">Node Version Manager in GitHub</a>.
+> **IMPORTANT:** If you used `sudo apt-get install` to install Node.js, make sure that you have installed the `nodejs-legacy` package instead of `node`.
 
 1. Run Sublime Text.
 1. Select **Sublime Text** &#8594; **Preferences** &#8594; **Package Control**.
@@ -141,6 +137,8 @@ You can build and deploy your app on one device at a time with the **Tools** -> 
 
 > In this version of the AppBuilder package for Sublime Text for Linux, you cannot build and deploy your app via cable connection on iOS devices.
 
+> To be able to work with connected iOS devices on Windows systems, verify that you have downloaded and installed the 32-bit Node.js.
+
 1. Connect your devices.
 1. Select **Tools** -> **Telerik AppBuilder** -> **Build and Deploy**.<br/>If you have connected multiple devices, Sublime Text will display a drop-down list of the connected devices with their unique identifiers and mobile platform.
 1. If prompted, select the device on which you want to deploy.
@@ -165,6 +163,8 @@ The app refreshes automatically.
 You can synchronize all your changes to an app deployed on a connected device at once with the **Tools** -> **Telerik AppBuilder** -> **LiveSync Application** operation. This operation replaces all application files at once.
 
 > In this version of the AppBuilder package for Sublime Text for Linux, you cannot LiveSync your app via cable connection on iOS devices.
+
+> To be able to work with connected iOS devices on Windows systems, verify that you have downloaded and installed the 32-bit Node.js.
 
 1. Verify that you have connected your device and you have deployed the app.
 1. Run your app.
