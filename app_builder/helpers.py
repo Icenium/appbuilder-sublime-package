@@ -1,4 +1,4 @@
 import re
 
-def parse_version_string(version_string):
-    return re.split("[\.-]", version_string.strip())[:3]
+def get_major_minor_version_from_string(version_string):
+    return re.split("[\.-]", version_string.strip())[:2]
