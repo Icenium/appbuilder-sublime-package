@@ -12,7 +12,6 @@ try:
     from .app_builder import command_executor
     from .app_builder import bootstrapper
     from .app_builder.notifier import log_fail, log_error
-    from .app_builder.helpers import parse_version_string
     from .app_builder.feature_usage_tracking import ensure_feature_usage_tracking_is_set
 
 except (ValueError):
@@ -21,7 +20,6 @@ except (ValueError):
     from app_builder import command_executor
     from app_builder import bootstrapper
     from app_builder.notifier import log_fail, log_error
-    from app_builder.helpers import parse_version_string
     from app_builder.feature_usage_tracking import ensure_feature_usage_tracking_is_set
 
 def plugin_loaded():
@@ -29,7 +27,9 @@ def plugin_loaded():
     def on_data(data):
         global installed_appbuilder_cli_version
         if data:
-            installed_appbuilder_cli_version = parse_version_string(data)
+            if data[-1] == "\n":
+                data = data[:-1]
+            installed_appbuilder_cli_version = data
 
     def on_done(succeeded):
         global installed_appbuilder_cli_version
