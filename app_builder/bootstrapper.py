@@ -4,7 +4,7 @@ import json
 
 from .notifier import log_info, log_fail
 from .semver import *
-from .helpers import get_major_minor_version_from_string
+from .helpers import *
 
 _has_compatible_working_appbuilder_cli = None
 _config = None
@@ -30,8 +30,9 @@ def _verify_appbuilder_cli_version(installed_appbuilder_cli_version):
     global _has_compatible_working_appbuilder_cli
     min_required_appbuilder_cli_version = get_config("min_required_appbuilder_cli_version")
     max_allowed_appbuilder_cli_version = get_config("max_allowed_appbuilder_cli_version")
-    validMinVersion = match(installed_appbuilder_cli_version, ">="+min_required_appbuilder_cli_version)
-    validMaxVersion = match(installed_appbuilder_cli_version, "<"+max_allowed_appbuilder_cli_version)
+    cli_version = get_correct_semversion(installed_appbuilder_cli_version)
+    validMinVersion = match(cli_version, ">="+min_required_appbuilder_cli_version)
+    validMaxVersion = match(cli_version, "<"+max_allowed_appbuilder_cli_version)
     if validMinVersion and validMaxVersion:
         _has_compatible_working_appbuilder_cli = True
         log_info("Telerik AppBuilder has been initialized successfully")
