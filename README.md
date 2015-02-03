@@ -30,7 +30,7 @@ Release date: 2015, January 21
 * Windows, OS X Mavericks, or Linux
 * Sublime Text 2 or Sublime Text 3
 * Package Control for your version of Sublime Text
-* Telerik AppBuilder Command-Line Interface
+* Telerik AppBuilder Command-Line Interface<br/>Your version of the Telerik AppBuilder package for Sublime Text must match the latest official major release of the Telerik AppBuilder Command-Line Interface.
 * Any software required by the <a href="https://www.npmjs.org/package/appbuilder" target="_blank">Telerik AppBuilder Command-Line Interface</a>
 
 ### Install the Package
