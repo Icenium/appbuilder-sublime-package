@@ -1,7 +1,7 @@
 Telerik AppBuilder for Sublime Text
 ==========================
 
-*Build and test iOS, Android and Windows Phone 8 hybrid apps using a single pure HTML5, CSS, and JavaScript code base*
+*Build and test iOS, Android and Windows Phone hybrid apps using a single pure HTML5, CSS, and JavaScript code base*
 
 [![Telerik AppBuilder](https://raw.githubusercontent.com/Icenium/appbuilder-sublime-package/master/ab-logo.png "Telerik AppBuilder")](http://www.telerik.com/appbuilder "The Telerik AppBuilder web site")
 
