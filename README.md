@@ -84,8 +84,6 @@ If Sublime Text cannot load the package properly, verify that the path variables
 
 #### Install the AppBuilder package for Sublime Text on Linux
 
-> **IMPORTANT:** If you used `sudo apt-get install` to install Node.js, make sure that you have installed the `nodejs-legacy` package instead of `node`.
-
 1. Run Sublime Text.
 1. Select **Sublime Text** &#8594; **Preferences** &#8594; **Package Control**.
 1. Select **Install Package**.
