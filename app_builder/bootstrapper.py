@@ -22,8 +22,8 @@ def _load_config():
         "linux_appbuilder_path": settings.get("linux_appbuilder_path") or "",
         "win_node_name": "node",
         "win_appbuilder_name": "appbuilder",
-        "min_required_appbuilder_cli_version": "2.9.0", #inclusive
-        "max_allowed_appbuilder_cli_version": "2.10.0"  #exclusive
+        "min_required_appbuilder_cli_version": "2.10.0", #inclusive
+        "max_allowed_appbuilder_cli_version": "2.11.0"  #exclusive
     }
 
 def _verify_appbuilder_cli_version(installed_appbuilder_cli_version):
