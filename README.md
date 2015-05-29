@@ -1,13 +1,13 @@
 Telerik AppBuilder for Sublime Text
 ==========================
 
-*Build and test iOS, Android and Windows Phone hybrid apps using a single pure HTML5, CSS, and JavaScript code base*
+*Build and test iOS, Android and Windows Phone apps using a single pure HTML5, CSS, and JavaScript code base*
 
 [![Telerik AppBuilder](https://raw.githubusercontent.com/Icenium/appbuilder-sublime-package/master/ab-logo.png "Telerik AppBuilder")](http://www.telerik.com/appbuilder "The Telerik AppBuilder web site")
 
 **Leverage the build and test capabilities of Telerik AppBuilder from Sublime Text 2 or Sublime Text 3**
 
-This package lets you run your hybrid mobile app on connected devices or in the device simulator, and synchronize your code changes to the running app without redeploying it. The package requires that the Telerik AppBuilder Command-Line Interface is installed on your system.
+This package lets you run your mobile app on connected devices or in the device simulator, and synchronize your code changes to the running app without redeploying it. The package requires that the Telerik AppBuilder Command-Line Interface is installed on your system.
 
 > The Telerik AppBuilder Command-Line Interface is delivered for Windows, OS X, and Linux as an npm package. For more information click <a href="https://www.npmjs.org/package/appbuilder" target="_blank">here</a>.
 
@@ -20,10 +20,10 @@ This package lets you run your hybrid mobile app on connected devices or in the 
 Installation
 ===
 
-Latest version: Telerik AppBuilder 2.9  
-Release date: 2015, April 29
+Latest version: Telerik AppBuilder 2.10  
+Release date: 2015, June 8
 
-> For a complete list of the improvements and updates available in Telerik AppBuilder 2.9, see <a href="http://docs.telerik.com/platform/appbuilder/release-notes/v2-9" target="_blank">Telerik AppBuilder 2.9 Release Notes</a>.
+> For a complete list of the improvements and updates available in Telerik AppBuilder 2.10, see <a href="http://docs.telerik.com/platform/appbuilder/release-notes/v2-10" target="_blank">Telerik AppBuilder 2.10 Release Notes</a>.
 
 ### Software Requirements
 
