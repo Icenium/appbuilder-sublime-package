@@ -19,7 +19,7 @@ def run_command(command, on_data=None, on_done=None, show_progress=True,
         return None
 
     command = appbuilder_path + command
-    command += ["--client", "Sublime"]
+    command += ["--analyticsClient", "Sublime"]
 
     if filter_empty_args:
         command = [arg for arg in command if arg]
