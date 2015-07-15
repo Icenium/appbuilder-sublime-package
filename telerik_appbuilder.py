@@ -12,7 +12,7 @@ try:
     from .app_builder import command_executor
     from .app_builder import bootstrapper
     from .app_builder.notifier import log_fail, log_error
-    from .app_builder.feature_usage_tracking import ensure_feature_usage_tracking_is_set
+    from .app_builder.usage_reporting import ensure_usage_reporting_is_set
 
 except (ValueError):
     # Python 2
@@ -20,7 +20,7 @@ except (ValueError):
     from app_builder import command_executor
     from app_builder import bootstrapper
     from app_builder.notifier import log_fail, log_error
-    from app_builder.feature_usage_tracking import ensure_feature_usage_tracking_is_set
+    from app_builder.usage_reporting import ensure_usage_reporting_is_set
 
 def plugin_loaded():
     installed_appbuilder_cli_version = None
