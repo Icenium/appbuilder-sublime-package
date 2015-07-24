@@ -20,10 +20,10 @@ This package lets you run your mobile app on connected devices or in the device 
 Installation
 ===
 
-Latest version: Telerik AppBuilder 2.10  
-Release date: 2015, June 8
+Latest version: Telerik AppBuilder 2.11  
+Release date: 2015, July 27
 
-> For a complete list of the improvements and updates available in Telerik AppBuilder 2.10, see <a href="http://docs.telerik.com/platform/appbuilder/release-notes/v2-10" target="_blank">Telerik AppBuilder 2.10 Release Notes</a>.
+> For a complete list of the improvements and updates available in Telerik AppBuilder 2.11, see <a href="http://docs.telerik.com/platform/appbuilder/release-notes/v2-11" target="_blank">Telerik AppBuilder 2.11 Release Notes</a>.
 
 ### Software Requirements
 
