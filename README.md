@@ -75,7 +75,7 @@ If Sublime Text cannot load the package properly, verify that the path variables
 
     ```
     {
-        "node_osx_path": "The path retrieved in Step 1"
+        "node_osx_path": "The path retrieved in Step 1",
         "appbuilder_osx_path": "The path retrieved in Step 2"
     }
     ```
@@ -108,7 +108,7 @@ If Sublime Text cannot load the package properly, verify that the path variables
 
     ```
     {
-        "linux_node_path": "The path retrieved in Step 1"
+        "linux_node_path": "The path retrieved in Step 1",
         "linux_appbuilder_path": "The path retrieved in Step 2"
     }
     ```
