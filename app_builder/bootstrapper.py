@@ -22,8 +22,8 @@ def _load_config():
         "linux_appbuilder_path": settings.get("linux_appbuilder_path") or "",
         "win_node_name": "node",
         "win_appbuilder_name": "appbuilder",
-        "min_required_appbuilder_cli_version": "2.11.0", #inclusive
-        "max_allowed_appbuilder_cli_version": "2.12.0"  #exclusive
+        "min_required_appbuilder_cli_version": "2.12.0", #inclusive
+        "max_allowed_appbuilder_cli_version": "2.13.0"  #exclusive
     }
 
 def _verify_appbuilder_cli_version(installed_appbuilder_cli_version):
@@ -46,7 +46,7 @@ def _verify_appbuilder_cli_version(installed_appbuilder_cli_version):
         if not validMaxVersion:
             log_fail("You have updated your Telerik AppBuilder CLI to {cli_version}.\n".
                 format(cli_version=installed_appbuilder_cli_version) +
-                "To be able to load the Telerik AppBuilder package, you need to update the package to at least {required_min_version}.0.". 
+                "To be able to load the Telerik AppBuilder package, you need to update the package to at least {required_min_version}.0.".
                 format(required_min_version=".".join(get_major_minor_version_from_string(installed_appbuilder_cli_version))))
 
 def get_config(name):
