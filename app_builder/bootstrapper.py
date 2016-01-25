@@ -23,17 +23,14 @@ def _load_config():
         "win_node_name": "node",
         "win_appbuilder_name": "appbuilder",
         "min_required_appbuilder_cli_version": "3.0.0", #inclusive
-        "max_allowed_appbuilder_cli_version": "3.1.0"  #exclusive
     }
 
 def _verify_appbuilder_cli_version(installed_appbuilder_cli_version):
     global _has_compatible_working_appbuilder_cli
     min_required_appbuilder_cli_version = get_config("min_required_appbuilder_cli_version")
-    max_allowed_appbuilder_cli_version = get_config("max_allowed_appbuilder_cli_version")
     cli_version = get_correct_semversion(installed_appbuilder_cli_version)
     validMinVersion = match(cli_version, ">="+min_required_appbuilder_cli_version)
-    validMaxVersion = match(cli_version, "<"+max_allowed_appbuilder_cli_version)
-    if validMinVersion and validMaxVersion:
+    if validMinVersion:
         _has_compatible_working_appbuilder_cli = True
         log_info("Telerik AppBuilder has been initialized successfully")
     else:
@@ -43,11 +40,6 @@ def _verify_appbuilder_cli_version(installed_appbuilder_cli_version):
                 format(required_min_version=min_required_appbuilder_cli_version) +
                 "To be able to load it, you need to update your Telerik AppBuilder CLI to {installed_version}.x.".
                 format(installed_version=".".join(get_major_minor_version_from_string(min_required_appbuilder_cli_version))))
-        if not validMaxVersion:
-            log_fail("You have updated your Telerik AppBuilder CLI to {cli_version}.\n".
-                format(cli_version=installed_appbuilder_cli_version) +
-                "To be able to load the Telerik AppBuilder package, you need to update the package to at least {required_min_version}.0.".
-                format(required_min_version=".".join(get_major_minor_version_from_string(installed_appbuilder_cli_version))))
 
 def get_config(name):
     global _config
