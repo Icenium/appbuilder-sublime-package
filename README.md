@@ -20,10 +20,10 @@ This package lets you run your mobile app on connected devices or in the device 
 Installation
 ===
 
-Latest version: Telerik AppBuilder 3.1 
-Release date: January 28, 2016
+Latest version: Telerik AppBuilder 3.2 
+Release date: April 13, 2016
 
-> For a complete list of the improvements and updates available in Telerik AppBuilder 3.1, see <a href="http://docs.telerik.com/platform/appbuilder/release-notes/v3-1" target="_blank">Telerik AppBuilder 3.1 Release Notes</a>.
+> For a complete list of the improvements and updates available in this release, see <a href="http://docs.telerik.com/platform/appbuilder/release-notes/v3-2" target="_blank">Telerik AppBuilder 3.2 Release Notes</a>.
 
 ### Software Requirements
 
