@@ -20,7 +20,7 @@ This package lets you run your mobile app on connected devices or in the device 
 Installation
 ===
 
-Latest version: Telerik AppBuilder 3.2 
+Latest version: Telerik AppBuilder 3.2
 Release date: April 13, 2016
 
 > For a complete list of the improvements and updates available in this release, see <a href="http://docs.telerik.com/platform/appbuilder/release-notes/v3-2" target="_blank">Telerik AppBuilder 3.2 Release Notes</a>.
@@ -41,7 +41,7 @@ Install this package with <a href="http://wbond.net/sublime_packages/package_con
 * [Install the AppBuilder Package for Sublime Text on OS X](#install-the-appbuilder-package-for-sublime-text-on-os-x "Install the AppBuilder package for Sublime Text on OS X")
 * [Install the AppBuilder Package for Sublime Text on Linux](#install-the-appbuilder-package-for-sublime-text-on-linux "Install the AppBuilder package for Sublime Text on Linux")
 
-#### Install the AppBuilder package for Sublime Text on Windows 
+#### Install the AppBuilder package for Sublime Text on Windows
 
 1. Run Sublime Text.
 1. Select **Preferences** &#8594; **Package Control**.
@@ -60,7 +60,7 @@ Install this package with <a href="http://wbond.net/sublime_packages/package_con
 If Sublime Text cannot load the package properly, verify that the path variables for Node.js and AppBuilder are populated properly in `telerik_appbuilder.sublime-settings`.
 
 1. In the terminal, run the following command.
- 
+
     ```Shell
     which node
     ```
@@ -69,8 +69,10 @@ If Sublime Text cannot load the package properly, verify that the path variables
     ```Shell
     which appbuilder
     ```
-1. Select **Sublime Text** &#8594; **Preferences** &#8594; **Package Control**.
-1. Locate and open the **Telerik AppBuilder** folder.
+1. Select **Sublime Text** &#8594; **Preferences** &#8594; **Browse packages...**.
+1. If not present, create the **Telerik AppBuilder** folder.
+1. Open the **Telerik AppBuilder** folder.
+1. If not present, create a `telerik_appbuilder.sublime-settings` file.
 1. Open `telerik_appbuilder.sublime-settings` and replace the declared path values.
 
     ```
@@ -102,8 +104,10 @@ If Sublime Text cannot load the package properly, verify that the path variables
     ```Shell
     which appbuilder
     ```
-1. Select **Sublime Text** &#8594; **Preferences** &#8594; **Package Control**.
-1. Locate and open the **Telerik AppBuilder** folder.
+1. Select **Sublime Text** &#8594; **Preferences** &#8594; **Browse packages...**.
+1. If not present, create the **Telerik AppBuilder** folder.
+1. Open the **Telerik AppBuilder** folder.
+1. If not present, create a `telerik_appbuilder.sublime-settings` file.
 1. Open `telerik_appbuilder.sublime-settings` and replace the declared path values.
 
     ```
@@ -145,7 +149,7 @@ You can build and deploy your app on one device at a time with the **Tools** -> 
 
 ### Configure LiveSync
 
-You can toggle real-time synchronization of your code changes on save with the **Tools** -> **Telerik AppBuilder** -> **LiveSync on Save** option. 
+You can toggle real-time synchronization of your code changes on save with the **Tools** -> **Telerik AppBuilder** -> **LiveSync on Save** option.
 
 When you modify your code and save your changes, your running app will refresh automatically if the device is connected to your system. This operation replaces only the modified application files.
 
@@ -174,7 +178,7 @@ You can synchronize all your changes to an app deployed on a connected device at
 <a name="simulator"></a>
 ### Run in the Device Simulator
 
-You can build and deploy your app in the device simulator with the **Tools** -> **Telerik AppBuilder** -> **Run in Simulator** operation. 
+You can build and deploy your app in the device simulator with the **Tools** -> **Telerik AppBuilder** -> **Run in Simulator** operation.
 
 > In this version of the AppBuilder package for Sublime Text for Linux, you cannot run your app in the device simulator.
 
