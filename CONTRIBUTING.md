@@ -1,13 +1,13 @@
-Contribute to the Telerik AppBuilder Package for Sublime Text
+Contribute to the Sublime Text Package for Telerik AppBuilder by Progress
 ===
 
-*Help us improve the Telerik AppBuilder Package for Sublime Text* 
+*Help us improve the Telerik AppBuilder Package for Sublime Text*
 
-[![Telerik AppBuilder](https://raw.githubusercontent.com/Icenium/appbuilder-sublime-package/master/ab-logo.png "Telerik AppBuilder")](http://www.telerik.com/appbuilder "The Telerik AppBuilder web site")
+[![Telerik AppBuilder](https://raw.githubusercontent.com/Icenium/appbuilder-sublime-package/master/ab-logo.png "Telerik AppBuilder")](http://www.telerik.com/appbuilder "The Telerik AppBuilder by Progress web site")
 
-The Telerik AppBuilder package for Sublime Text 2 lets you run your hybrid mobile app on connected devices or in the device simulator, and synchronize your code changes to the running app without redeploying it. The package requires that the Telerik AppBuilder Command-Line Interface is installed on your system.
+The AppBuilder package for Sublime Text 2 lets you run your hybrid mobile app on connected devices or in the device simulator, and synchronize your code changes to the running app without redeploying it. The package requires that the Telerik AppBuilder Command-Line Interface by Progress is installed on your system.
 
-> The Telerik AppBuilder Command-Line Interface is delivered for Windows and OS X as an npm package. For more information click <a href="https://www.npmjs.org/package/appbuilder" target="_blank">here</a>.
+> The AppBuilder Command-Line Interface is delivered for Windows and OS X as an npm package. For more information click <a href="https://www.npmjs.org/package/appbuilder" target="_blank">here</a>.
 
 * [Report an Issue](#report-an-issue "Learn how to report a bug")
 * [Request a Feature](#request-a-feature "Learn how to submit a feature or improvement request")
@@ -54,7 +54,7 @@ Before you submit your Pull Request consider the following guidelines:
 ```
     grunt
 ```
-> This will create 'Telerik AppBuilder.zip' which you will have to extract in the Sublime Text packages directory and ensure that the package is working properly.
+> This will create 'AppBuilder.zip' in 'build_output' directory which you will have to extract in the Sublime Text packages directory and ensure that the package is working properly.
 
 * Push your branch to GitHub:
 ```

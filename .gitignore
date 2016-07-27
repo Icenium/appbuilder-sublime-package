@@ -7,3 +7,4 @@ test-reports.xml
 npm-debug.log
 node_modules
 build
+build_output

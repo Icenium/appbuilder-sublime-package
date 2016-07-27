@@ -119,14 +119,14 @@ If Sublime Text cannot load the package properly, verify that the path variables
 1. Save changes.
 1. Restart Sublime Text.
 
-The AppBuilder menu becomes available under the **Tools** menu.
+The Telerik AppBuilder menu becomes available under the **Tools** menu.
 
 [Back to Top][1]
 
 Usage
 ===
 
-After you install this package, you can access the available build and sync commands from **Tools** -> **AppBuilder**.
+After you install this package, you can access the available build and sync commands from **Tools** -> **Telerik AppBuilder**.
 
 * [Run on Device](#run-on-device "Build and deploy to device")
 * [Configure LiveSync](#configure-livesync "Configure LiveSync")
@@ -135,25 +135,25 @@ After you install this package, you can access the available build and sync comm
 
 ### Run on Device
 
-You can build and deploy your app on one device at a time with the **Tools** -> **AppBuilder** -> **Build and Deploy** operation.
+You can build and deploy your app on one device at a time with the **Tools** -> **Telerik AppBuilder** -> **Build and Deploy** operation.
 
 > In this version of the AppBuilder package for Sublime Text for Linux, you cannot build and deploy your app via cable connection on iOS devices.
 
 > To be able to work with connected iOS devices on Windows systems, verify that you have downloaded and installed the 32-bit Node.js.
 
 1. Connect your devices.
-1. Select **Tools** -> **AppBuilder** -> **Build and Deploy**.<br/>If you have connected multiple devices, Sublime Text will display a drop-down list of the connected devices with their unique identifiers and mobile platform.
+1. Select **Tools** -> **Telerik AppBuilder** -> **Build and Deploy**.<br/>If you have connected multiple devices, Sublime Text will display a drop-down list of the connected devices with their unique identifiers and mobile platform.
 1. If prompted, select the device on which you want to deploy.
 1. Track the deployment process in the status bar and in the log.
 1. After the deployment completes, run your app on device.
 
 ### Configure LiveSync
 
-You can toggle real-time synchronization of your code changes on save with the **Tools** -> **AppBuilder** -> **LiveSync on Save** option.
+You can toggle real-time synchronization of your code changes on save with the **Tools** -> **Telerik AppBuilder** -> **LiveSync on Save** option.
 
 When you modify your code and save your changes, your running app will refresh automatically if the device is connected to your system. This operation replaces only the modified application files.
 
-1. Select **Tools** -> **AppBuilder** -> **Enable LiveSync on Save**.<br/>A check mark indicates that LiveSync is enabled.
+1. Select **Tools** -> **Telerik AppBuilder** -> **Enable LiveSync on Save**.<br/>A check mark indicates that LiveSync is enabled.
 1. On your connected devices or in the device simulator, run your app.
 1. Modify your code and save changes.
 
@@ -162,7 +162,7 @@ The app refreshes automatically.
 <a name="sync"></a>
 ### Reload the App on Device
 
-You can synchronize all your changes to an app deployed on a connected device at once with the **Tools** -> **AppBuilder** -> **LiveSync Application** operation. This operation replaces all application files at once.
+You can synchronize all your changes to an app deployed on a connected device at once with the **Tools** -> **Telerik AppBuilder** -> **LiveSync Application** operation. This operation replaces all application files at once.
 
 > In this version of the AppBuilder package for Sublime Text for Linux, you cannot LiveSync your app via cable connection on iOS devices.
 
@@ -171,18 +171,18 @@ You can synchronize all your changes to an app deployed on a connected device at
 1. Verify that you have connected your device and you have deployed the app.
 1. Run your app.
 1. Modify your code and save changes.
-1. Select **Tools** -> **AppBuilder** -> **LiveSync Application**.<br/>If you have connected multiple devices, Sublime Text will display a drop-down list of the connected devices with their unique identifiers and mobile platform.
+1. Select **Tools** -> **Telerik AppBuilder** -> **LiveSync Application**.<br/>If you have connected multiple devices, Sublime Text will display a drop-down list of the connected devices with their unique identifiers and mobile platform.
 1. Select the device to which you want to sync changes.
 1. Track the deployment process in the status bar and in the log.
 
 <a name="simulator"></a>
 ### Run in the Device Simulator
 
-You can build and deploy your app in the device simulator with the **Tools** -> **AppBuilder** -> **Run in Simulator** operation.
+You can build and deploy your app in the device simulator with the **Tools** -> **Telerik AppBuilder** -> **Run in Simulator** operation.
 
 > In this version of the AppBuilder package for Sublime Text for Linux, you cannot run your app in the device simulator.
 
-* Select **Tools** -> **AppBuilder** -> **Run in Simulator**.
+* Select **Tools** -> **Telerik AppBuilder** -> **Run in Simulator**.
 
 In the device simulator, you can change the target device form factor, mobile platform and version, and orientation. You can adjust the geolocation details, network connection configuration, file storage configuration, and the default contacts. You can debug your code using the built-in debug tools.
 
