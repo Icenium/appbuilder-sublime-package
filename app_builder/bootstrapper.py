@@ -38,7 +38,7 @@ def _verify_appbuilder_cli_version(installed_appbuilder_cli_version):
         if not validMinVersion:
             log_fail("You have updated your Telerik AppBuilder package to {required_min_version}.\n".
                 format(required_min_version=min_required_appbuilder_cli_version) +
-                "To be able to load it, you need to update your Telerik AppBuilder CLI to {installed_version}.x.".
+                "To be able to load it, you need to update your AppBuilder CLI to {installed_version}.x.".
                 format(installed_version=".".join(get_major_minor_version_from_string(min_required_appbuilder_cli_version))))
 
 def get_config(name):
