@@ -20,14 +20,14 @@ This package lets you run your mobile app on connected devices or in the device 
 Installation
 ===
 
-Latest version: AppBuilder 3.4
-Release date: July 27, 2016
+Latest version: AppBuilder 3.5
+Release date: September 20, 2016
 
-> For a complete list of the improvements and updates available in this release, see <a href="http://docs.telerik.com/platform/appbuilder/release-notes/v3-4" target="_blank">AppBuilder 3.4 Release Notes</a>.
+> For a complete list of the improvements and updates available in this release, see <a href="http://docs.telerik.com/platform/appbuilder/release-notes/v3-5" target="_blank">AppBuilder 3.5 Release Notes</a>.
 
 ### Software Requirements
 
-* Windows, OS X Mavericks, or Linux
+* Windows, OS X Yosemite or later, or Linux
 * Sublime Text 2 or Sublime Text 3
 * Package Control for your version of Sublime Text
 * AppBuilder Command-Line Interface<br/>Your version of the AppBuilder package for Sublime Text must match the latest official major release of the AppBuilder Command-Line Interface.
