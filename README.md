@@ -9,7 +9,7 @@ Sublime Text Package for Telerik AppBuilder by Progress
 
 This package lets you run your mobile app on connected devices or in the device simulator, and synchronize your code changes to the running app without redeploying it. The package requires that the Telerik AppBuilder Command-Line Interface by Progress is installed on your system.
 
-> The AppBuilder Command-Line Interface is delivered for Windows, OS X, and Linux as an npm package. For more information click <a href="https://www.npmjs.org/package/appbuilder" target="_blank">here</a>.
+> The AppBuilder Command-Line Interface is delivered for Windows, macOS, and Linux as an npm package. For more information click <a href="https://www.npmjs.org/package/appbuilder" target="_blank">here</a>.
 
 * [Installation](#installation "How to install the AppBuilder package for Sublime Text")
 * [Usage](#usage "How to build, deploy, and sync your apps from Sublime Text")
@@ -21,13 +21,13 @@ Installation
 ===
 
 Latest version: AppBuilder 3.5
-Release date: September 20, 2016
+Release date: September 26, 2016
 
 > For a complete list of the improvements and updates available in this release, see <a href="http://docs.telerik.com/platform/appbuilder/release-notes/v3-5" target="_blank">AppBuilder 3.5 Release Notes</a>.
 
 ### Software Requirements
 
-* Windows, OS X Yosemite or later, or Linux
+* Windows, macOS Yosemite or later, or Linux
 * Sublime Text 2 or Sublime Text 3
 * Package Control for your version of Sublime Text
 * AppBuilder Command-Line Interface<br/>Your version of the AppBuilder package for Sublime Text must match the latest official major release of the AppBuilder Command-Line Interface.
@@ -38,7 +38,7 @@ Release date: September 20, 2016
 Install this package with <a href="http://wbond.net/sublime_packages/package_control" target="_blank">Package Control</a>.
 
 * [Install the AppBuilder Package for Sublime Text on Windows](#install-the-appbuilder-package-for-sublime-text-on-windows "Install the AppBuilder package for Sublime Text on Windows")
-* [Install the AppBuilder Package for Sublime Text on OS X](#install-the-appbuilder-package-for-sublime-text-on-os-x "Install the AppBuilder package for Sublime Text on OS X")
+* [Install the AppBuilder Package for Sublime Text on macOS](#install-the-appbuilder-package-for-sublime-text-on-macos "Install the AppBuilder package for Sublime Text on macOS")
 * [Install the AppBuilder Package for Sublime Text on Linux](#install-the-appbuilder-package-for-sublime-text-on-linux "Install the AppBuilder package for Sublime Text on Linux")
 
 #### Install the AppBuilder package for Sublime Text on Windows
@@ -49,7 +49,7 @@ Install this package with <a href="http://wbond.net/sublime_packages/package_con
 1. Start typing *AppBuilder* and select the package from the list.
 1. Wait for the installation to complete.
 
-#### Install the AppBuilder package for Sublime Text on OS X
+#### Install the AppBuilder package for Sublime Text on macOS
 
 1. Run Sublime Text.
 1. Select **Sublime Text** &#8594; **Preferences** &#8594; **Package Control**.
