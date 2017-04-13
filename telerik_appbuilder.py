@@ -37,7 +37,7 @@ def plugin_loaded():
             bootstrapper.initialize(installed_appbuilder_cli_version)
         else:
             installed_appbuilder_cli_version = None
-            log_fail("Cannot load the Sublime Text package for Telerik AppBuilder by Progress because the Telerik AppBuilder command-line interface is not installed properly on your system.\n" +
+            log_fail("Cannot load the Sublime Text package for Progress Telerik AppBuilder because the Telerik AppBuilder command-line interface is not installed properly on your system.\n" +
                 "For a complete list of the system requirements for running the AppBuilder package, go to:\n" +
                 "https://github.com/Icenium/appbuilder-sublime-package#installation")
 

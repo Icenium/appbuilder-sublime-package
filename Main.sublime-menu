@@ -5,7 +5,7 @@
     [
         {
             "id": "AppBuilder",
-            "caption": "Telerik AppBuilder",
+            "caption": "Progress Telerik AppBuilder",
             "children":
             [
                 { "id": "deploy", "command": "deploy", "caption": "Build and Deploy"},

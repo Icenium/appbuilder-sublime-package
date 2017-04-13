@@ -1,11 +1,11 @@
-Contribute to the Sublime Text Package for Telerik AppBuilder by Progress
+Contribute to the Sublime Text Package for Progress Telerik AppBuilder
 ===
 
-*Help us improve the Telerik AppBuilder Package for Sublime Text*
+*Help us improve the Progress Telerik AppBuilder Package for Sublime Text*
 
-[![Telerik AppBuilder](https://raw.githubusercontent.com/Icenium/appbuilder-sublime-package/master/ab-logo.png "Telerik AppBuilder")](http://www.telerik.com/appbuilder "The Telerik AppBuilder by Progress web site")
+[![Progress Telerik AppBuilder](https://raw.githubusercontent.com/Icenium/appbuilder-sublime-package/master/ab-logo.png "Telerik AppBuilder")](http://www.telerik.com/appbuilder "The Progress Telerik AppBuilder web site")
 
-The AppBuilder package for Sublime Text 2 lets you run your hybrid mobile app on connected devices or in the device simulator, and synchronize your code changes to the running app without redeploying it. The package requires that the Telerik AppBuilder Command-Line Interface by Progress is installed on your system.
+The AppBuilder package for Sublime Text 2 lets you run your hybrid mobile app on connected devices or in the device simulator, and synchronize your code changes to the running app without redeploying it. The package requires that the Progress Telerik AppBuilder Command-Line Interface is installed on your system.
 
 > The AppBuilder Command-Line Interface is delivered for Windows and OS X as an npm package. For more information click <a href="https://www.npmjs.org/package/appbuilder" target="_blank">here</a>.
 
