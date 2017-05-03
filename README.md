@@ -1,4 +1,4 @@
-Sublime Text Package for Telerik AppBuilder by Progress
+Sublime Text Package for Progress Telerik AppBuilder
 ==========================
 
 *Build and test iOS, Android and Windows Phone apps using a single pure HTML5, CSS, and JavaScript code base*
@@ -7,7 +7,7 @@ Sublime Text Package for Telerik AppBuilder by Progress
 
 **Leverage the build and test capabilities of AppBuilder from Sublime Text 2 or Sublime Text 3**
 
-This package lets you run your mobile app on connected devices or in the device simulator, and synchronize your code changes to the running app without redeploying it. The package requires that the Telerik AppBuilder Command-Line Interface by Progress is installed on your system.
+This package lets you run your mobile app on connected devices or in the device simulator, and synchronize your code changes to the running app without redeploying it. The package requires that the Progress Telerik AppBuilder Command-Line Interface is installed on your system.
 
 > The AppBuilder Command-Line Interface is delivered for Windows, OS X, and Linux as an npm package. For more information click <a href="https://www.npmjs.org/package/appbuilder" target="_blank">here</a>.
 
