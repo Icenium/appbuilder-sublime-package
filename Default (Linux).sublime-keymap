@@ -1,5 +1,5 @@
 [  
-	{ "keys": ["ctrl+alt+d"], "command": "deploy" },
-	{ "keys": ["ctrl+alt+u"], "command": "sync" },
-	{ "keys": ["ctrl+alt+l"], "command": "toggle_live_sync" }
+	{ "keys": ["ctrl+alt+d"], "command": "discontinuation" },
+	{ "keys": ["ctrl+alt+u"], "command": "discontinuation" },
+	{ "keys": ["ctrl+alt+l"], "command": "discontinuation" }
 ]
